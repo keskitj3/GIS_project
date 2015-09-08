@@ -8,10 +8,6 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    
-    //LISÄTYT
-    <script src="http://openlayers.org/api/OpenLayers.js"></script>
-    
   </head>
   <body>
     <section class="page-header">
@@ -25,7 +21,11 @@
     
     //LISÄTYT
       <section>
-      
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    </head>
+    <body>
+    <div style="width:100%; height:100%" id="map"></div>
+    </body> 
     <script defer="defer" type="text/Javascript">
 		// Map layer
 		var map = new OpenLayers.Map("map",{ 
