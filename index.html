@@ -19,16 +19,17 @@
       <a href="https://github.com/Pesonet1/GIS_project/tarball/master" class="btn">Download .tar.gz</a>
     </section>
     
-    <section class="main-content" style="width:100%; height:100%" id="map">
-    	
-    	//LISÄTYT
-      <script defer="defer" type="text/javascript">
-        var map = new OpenLayers.Map('map');
-        var wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-            "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-        map.addLayer(wms);
-        map.zoomToMaxExtent();
-      </script>
+    //LISÄTYT
+    <div style="width:100%; height:100%" id="map"></div>
+    <script defer="defer" type="text/javascript">
+      var map = new OpenLayers.Map('map');
+      var wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+          "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+      map.addLayer(wms);
+      map.zoomToMaxExtent();
+    </script>
+    
+    <section class="main-content">
       	
       <iframe src="http://www.paikkatietoikkuna.fi/published/fi/f91bfea1-4163-43c3-87e6-209bd321bf43" 
       style="border: none; width:100%; height:100%;"></iframe>
