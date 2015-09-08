@@ -8,6 +8,10 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    
+    //LISÄTYT
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    
   </head>
   <body>
     <section class="page-header">
@@ -17,7 +21,49 @@
       <a href="https://github.com/Pesonet1/GIS_project/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/Pesonet1/GIS_project/tarball/master" class="btn">Download .tar.gz</a>
     </section>
+    
+    
+    //LISÄTYT
+      <section>
+      
+    <script defer="defer" type="text/Javascript">
+		// Map layer
+		var map = new OpenLayers.Map("map",{ 
+		projection: new OpenLayers.Projection("EPSG:3067"),
+		maxExtent: new OpenLayers.Bounds(44000, 6594000, 740000, 7782000),
+		isBaseLayer: true,
+		units:'m', controls: [new OpenLayers.Control.Navigation()]});
+		
+		// WMS layer
+		var wms = new OpenLayers.Layer.WMS("OpenLayers WMS",
+		"http://geoservices.hut.fi/nlswms",
+		{layers:'taustakartta'});
+		
+		// Editable layer
+		var layer = new OpenLayers.Layer.Vector("Editable",{layers: 'basic'});
+		
+		// Add layers
+		map.addLayers([wms, layer]);
+		
+		// Otaniemi coordinates
+		lon = 379514.68856;
+		lat = 6674090.62000;
+		
+		// Set map center Otaniemi
+		map.setCenter(new OpenLayers.LonLat([lon,lat]), [8]);
+		
+		// Add controls
+		map.addControl(new OpenLayers.Control.LayerSwitcher());
+		map.addControl(new OpenLayers.Control.Permalink());
+		map.addControl(new OpenLayers.Control.ScaleLine());
+		map.addControl(new OpenLayers.Control.MousePosition());
+		map.addControl(new OpenLayers.Control.PanZoomBar());
+		map.addControl(new OpenLayers.Control.EditingToolbar(layer));
+		
+	</script>
 
+    </section>
+    
     <section class="main-content">
       
       <h2>Hello world! ;)</h2>
