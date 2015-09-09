@@ -43,11 +43,9 @@
         map = new OpenLayers.Map('map');
         layer = new OpenLayers.Layer.WMS( "OpenLayers WMS","http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {
         	layers: 'basic',
-        	projection: new OpenLayers.Projection("EPSG:4326")
         	});
         map.addLayer(layer);
         //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-        map.addControl( new OpenLayers.Control.LayerSwitcher() );
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
