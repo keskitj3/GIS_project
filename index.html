@@ -30,7 +30,12 @@
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         var OSMmap = new OpenLayers.Layer.OSM();
         map.addLayer(OSMmap);
-        map.zoomToMaxExtent();
+        
+	lon = 379514.68856;
+	lat = 6674090.62000;
+	map.setCenter(new OpenLayers.LonLat([lon,lat]), [8]);
+
+        //map.zoomToMaxExtent();
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
