@@ -46,8 +46,6 @@
         	projection: new OpenLayers.Projection("EPSG:4326")
         	});
         map.addLayer(layer);
-        //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-        map.addControl( new OpenLayers.Control.LayerSwitcher() );
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
