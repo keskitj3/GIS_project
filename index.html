@@ -29,8 +29,7 @@
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         OSMmap = new OpenLayers.Layer.OSM();
         wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?",
-        	{layers: 'basic'});
+        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?");
         map.addLayer(OSMmap);
         
 	lon = 2763700;
