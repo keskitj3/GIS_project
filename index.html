@@ -25,17 +25,17 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        //var map = new OpenLayers.Map("map");
-        //map.addLayer(new OpenLayers.Layer.OSM());
+        map = new OpenLayers.Map("map");
+        var OSMmap = map.addLayer(new OpenLayers.Layer.OSM());
+	map.addLayer(OSMmap;)
+	map.zoomToMaxExtent();
+	
+        //map = new OpenLayers.Map('map');
+        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+        //	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
+        //	{layers: 'basic',} );
+        //map.addLayer(layer);
         //map.zoomToMaxExtent();
-
-        map = new OpenLayers.Map('map');
-        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
-        	{layers: 'basic',} );
-        map.addLayer(layer);
-        map.zoomToMaxExtent();
-        
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
