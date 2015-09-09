@@ -19,17 +19,6 @@
       <a href="https://github.com/Pesonet1/GIS_project/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/Pesonet1/GIS_project/tarball/master" class="btn">Download .tar.gz</a>
     </section>
-    
-    <script type="text/javascript">
-        var map, layer;
-        function init(){
-        	map = new OpenLayers.Map('map');
-        	layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-        		"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
-        		{layers: 'basic',} );
-        	map.addLayer(layer);
-        }
-     </script>
   
     <section class="main-content">
       	
@@ -38,15 +27,15 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        //var map = new OpenLayers.Map("map");
-        //map.addLayer(new OpenLayers.Layer.OSM());
-        //map.zoomToMaxExtent();
+        var map = new OpenLayers.Map("map");
+        map.addLayer(new OpenLayers.Layer.OSM());
+        map.zoomToMaxExtent();
 
-        map = new OpenLayers.Map('map');
-        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
-        	{layers: 'basic',} );
-        map.addLayer(layer);
+        //map = new OpenLayers.Map('map');
+        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+        //	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
+        //	{layers: 'basic',} );
+        //map.addLayer(layer);
         //map.zoomToMaxExtent();
         
         
