@@ -27,21 +27,22 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        var map = new OpenLayers.Map("map", {projection: new OpenLayers.Projection("EPSG:3067"),
+        var map = new OpenLayers.Map("map", {
+        	projection: new OpenLayers.Projection("EPSG:3067"),
+    		displayProjection: new OpenLayers.Projection("EPSG: 4326"),
 		isBaseLayer: true,
-		units:'m', controls: [new OpenLayers.Control.Navigation()]});
+		units:'m', 
+		controls: [new OpenLayers.Control.Navigation()]});
         map.addLayer(new OpenLayers.Layer.OSM());
         //map.zoomToMaxExtent();
         
-        lon = 2776000;
-	lat = 8437600;
-		
+        lon = 379514.68856;
+	lat = 6674090.62000;
+
 	// Set map center Otaniemi
 	map.setCenter(new OpenLayers.LonLat([lon,lat]), [6]);
-
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
-	map.addControl(new OpenLayers.Control.Permalink());
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
