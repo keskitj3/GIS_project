@@ -27,37 +27,32 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        var map = new OpenLayers.Map("map", {
-        	projection: new OpenLayers.Projection("EPSG:900913"),
-		isBaseLayer: true,
-		units:'m', 
-		controls: [new OpenLayers.Control.Navigation()]});
-        map.addLayer(new OpenLayers.Layer.OSM());
+        //var map = new OpenLayers.Map("map", {
+        //	projection: new OpenLayers.Projection("EPSG:900913"),
+	//	isBaseLayer: true,
+	//	units:'m', 
+	//	controls: [new OpenLayers.Control.Navigation()]});
+        //map.addLayer(new OpenLayers.Layer.OSM());
         //map.zoomToMaxExtent();
-	
-	//var myGML = new OpenLayers.Layer.GML("GML", "mygml.gml", {
-  	//projection: new OpenLayers.Projection("EPSG:4326")
-	//});
-	//map.addLayer(myGML);
         
-        lon = 379514.68856;
-	lat = 6674090.62000;
+        //lon = 379514.68856;
+	//lat = 6674090.62000;
+	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [6]);
+       
 
-	// Set map center Otaniemi
-	map.setCenter(new OpenLayers.LonLat([lon,lat]), [6]);
+        map = new OpenLayers.Map('map');
+        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS","http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {
+        	layers: 'basic',
+        	projection: new OpenLayers.Projection("EPSG:4326")
+        	});
+        map.addLayer(layer);
+        //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+        map.addControl( new OpenLayers.Control.LayerSwitcher() );
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
-
-        
-        //map = new OpenLayers.Map( 'map' );
-        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-        //"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {layers: 'basic'} );
-        //map.addLayer(layer);
-        //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-        //map.addControl( new OpenLayers.Control.LayerSwitcher() );
         
       </script>
 
