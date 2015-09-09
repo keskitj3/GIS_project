@@ -32,7 +32,14 @@
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         map.addLayer(new OpenLayers.Layer.OSM());
-        map.zoomToMaxExtent();
+        //map.zoomToMaxExtent();
+        
+        lon = 379514.68856;
+	lat = 6674090.62000;
+		
+	// Set map center Otaniemi
+	map.setCenter(new OpenLayers.LonLat([lon,lat]), [8]);
+
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.Permalink());
