@@ -28,8 +28,9 @@
       <script src="OpenLayers.js"></script>
       <script>
         var map = new OpenLayers.Map("map");
-        OSMmap = new OpenLayers.Layer.OSM());
-	map.addLayer(OSMmap);
+        map.addLayer(new OpenLayers.Layer.OSM());
+        //OSMmap = new OpenLayers.Layer.OSM());
+	//map.addLayer(OSMmap);
 	map.zoomToMaxExtent();
 	
         //map = new OpenLayers.Map('map');
