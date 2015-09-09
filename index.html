@@ -29,11 +29,12 @@
       <script>
         map = new OpenLayers.Map("map");
         OSMmap = new OpenLayers.Layer.OSM());
-        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
-        	{layers: 'basic',} );
-        	
         map.addLayer(OSMmap);
+        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+        //	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
+        //	{layers: 'basic',} );
+        	
+        //map.addLayer(OSMmap);
         map.zoomToMaxExtent();
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
