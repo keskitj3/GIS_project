@@ -27,25 +27,24 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        //var map = new OpenLayers.Map("map", {
-        //	projection: new OpenLayers.Projection("EPSG:900913"),
-	//	isBaseLayer: true,
-	//	units:'m', 
-	//	controls: [new OpenLayers.Control.Navigation()]});
-        //map.addLayer(new OpenLayers.Layer.OSM());
+        var map = new OpenLayers.Map("map", {
+        	projection: new OpenLayers.Projection("EPSG:900913"),
+		isBaseLayer: true,
+		units:'m', 
+		controls: [new OpenLayers.Control.Navigation()]});
+        map.addLayer(new OpenLayers.Layer.OSM());
         //map.zoomToMaxExtent();
         
-        //lon = 379514.68856;
-	//lat = 6674090.62000;
-	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [6]);
+        lon = 379514.68856;
+	lat = 6674090.62000;
+	map.setCenter(new OpenLayers.LonLat([lon,lat]), [6]);
        
 
-        map = new OpenLayers.Map('map');
-        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS","http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {
-        	layers: 'basic',
-        	});
-        map.addLayer(layer);
-        //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+        //map = new OpenLayers.Map('map');
+        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS","http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {
+        //	layers: 'basic',
+        //	});
+        //map.addLayer(layer);
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
