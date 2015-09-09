@@ -29,8 +29,11 @@
 		maxExtent: new OpenLayers.Bounds(44000, 6594000, 740000, 7782000),
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
-        var OSMmap = new OpenLayers.Layer.OSM();
-        map.addLayer(OSMmap);
+        //var OSMmap = new OpenLayers.Layer.OSM();
+        var wms = new OpenLayers.Layer.WMS("OpenLayers WMS",
+		"http://geoservices.hut.fi/nlswms",
+		{layers:'taustakartta'});
+        map.addLayer(wms);
         map.zoomToMaxExtent();
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
