@@ -31,13 +31,12 @@
         //map.addLayer(new OpenLayers.Layer.OSM());
         //map.zoomToMaxExtent();
         
-        var map = new OpenLayers.Map("map");
-        layer = new OpenLayers.Layer.WMS("OpenLayers WMS",
-        "http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {layers: 'basic'});
-        
+        map = new OpenLayers.Map( 'map' );
+        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+        "http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {layers: 'basic'} );
         map.addLayer(layer);
         map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
-        map.addControl(new OpenLayers.Control.LayerSwitcher());
+        map.addControl( new OpenLayers.Control.LayerSwitcher() );
         
       </script>
 
