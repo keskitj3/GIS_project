@@ -33,7 +33,7 @@
         	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
         	{layers: 'basic',} );
         	
-        map.addLayer([OSMmap, layer]);
+        map.addLayer(OSMmap);
         map.zoomToMaxExtent();
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
