@@ -31,6 +31,13 @@
         map.addLayer(new OpenLayers.Layer.OSM());
         map.zoomToMaxExtent();
         
+        map.addControl(new OpenLayers.Control.LayerSwitcher());
+		    map.addControl(new OpenLayers.Control.Permalink());
+		    map.addControl(new OpenLayers.Control.ScaleLine());
+		    map.addControl(new OpenLayers.Control.MousePosition());
+		    map.addControl(new OpenLayers.Control.PanZoomBar());
+
+        
         //map = new OpenLayers.Map( 'map' );
         //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
         //"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", {layers: 'basic'} );
