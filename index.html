@@ -25,7 +25,7 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        map = new OpenLayers.Map("map");
+        var map = new OpenLayers.Map("map");
         OSMmap = new OpenLayers.Layer.OSM());
 	map.addLayer(OSMmap);
 	map.zoomToMaxExtent();
