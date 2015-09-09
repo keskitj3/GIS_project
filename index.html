@@ -30,15 +30,15 @@
         map = new OpenLayers.Map("map");
         //map.addLayer(new OpenLayers.Layer.OSM());
         OSMmap = new OpenLayers.Layer.OSM());
-	map.addLayer(OSMmap);
-	map.zoomToMaxExtent();
+	//map.addLayer(OSMmap);
+	//map.zoomToMaxExtent();
 	
         //map = new OpenLayers.Map('map');
-        //layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-        //	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
-        //	{layers: 'basic',} );
-        //map.addLayer(layer);
-        //map.zoomToMaxExtent();
+        layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+        	"http://lipas.cc.jyu.fi/geoserver/lipas/wms?", 
+        	{layers: 'basic',} );
+        map.addLayer([OSMmap, layer]);
+        map.zoomToMaxExtent();
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
