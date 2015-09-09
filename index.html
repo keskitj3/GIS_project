@@ -24,10 +24,7 @@
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
       <script>
-        map = new OpenLayers.Map("map",{ 
-		numZoomLevels: 20,
-    		projection: new OpenLayers.Projection("EPSG:31258"),
-    		displayProjection: new OpenLayers.Projection("EPSG:3067")
+        map = new OpenLayers.Map("map", { 
 		maxExtent: new OpenLayers.Bounds(44000, 6594000, 740000, 7782000),
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
