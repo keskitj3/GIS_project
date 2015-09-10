@@ -21,21 +21,15 @@
       	
       <h3>OpenLayers Map</h3>
       
-      <div id="map" style="height:450px"></div>
-      <script src="OpenLayers.js"></script>
+      <div style="width:100%; height:100%" id="map"></div>
       <script defer="defer" type="text/javascript">
         var map = new OpenLayers.Map("map", { 
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         var OSMmap = new OpenLayers.Layer.OSM();
         var wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/ows?",
-        	{
-        	layers: "lipas_kaikki_pisteet",
-        	transparent: "true",
-        	format: "image/png"
-    		},
-    		{isBaseLayer: false});
+        	"http://lipas.cc.jyu.fi/geoserver/lipas/ows?service=WFS&version=1.0.0&request=GetMap&typeName=lipas:lipas_kaikki_pisteet",
+        	{layers: 'basic'});
         map.addLayer([OSMmap, wms]);
         
 	lon = 2763700;
