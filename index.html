@@ -23,12 +23,12 @@
       
       <div id="map" style="height:450px"></div>
       <script src="OpenLayers.js"></script>
-      <script>
-        map = new OpenLayers.Map("map", { 
+      <script defer="defer" type="text/javascript">
+        var map = new OpenLayers.Map("map", { 
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
-        OSMmap = new OpenLayers.Layer.OSM();
-        wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
+        var OSMmap = new OpenLayers.Layer.OSM();
+        var wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
         	"http://lipas.cc.jyu.fi/geoserver/lipas/ows?",
         	{
         	layers: "lipas_kaikki_pisteet",
