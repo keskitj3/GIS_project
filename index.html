@@ -27,10 +27,10 @@
 		isBaseLayer: true,
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         var OSMmap = new OpenLayers.Layer.OSM();
-        var wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
-        	"http://lipas.cc.jyu.fi/geoserver/lipas/ows?service=WFS&version=1.0.0&request=GetMap&typeName=lipas:lipas_kaikki_pisteet",
-        	{layers: 'basic'});
-        map.addLayer([OSMmap, wms]);
+        //var wms = new OpenLayers.Layer.WMS("OpenLayers WMS", 
+        //	"http://lipas.cc.jyu.fi/geoserver/lipas/ows?service=WFS&version=1.0.0&request=GetMap&typeName=lipas:lipas_kaikki_pisteet",
+        //	{layers: 'basic'});
+        map.addLayer(OSMmap);
         
 	lon = 2763700;
 	lat = 8441000;
