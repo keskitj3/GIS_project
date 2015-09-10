@@ -30,7 +30,7 @@
         OSMmap = new OpenLayers.Layer.OSM();
         
         wms = new OpenLayers.Layer.WMS("wms map", 
-        "http://lipas.cc.jyu.fi:80/geoserver/lipas/ows?service=WMS&request=GetLegendGraphic&format=image/png&width=20&height=20&layer=lipas_kaikki_pisteet");
+        "http://lipas.cc.jyu.fi:80/geoserver/lipas/ows?service=WMS&request=GetMap&format=image/png&width=20&height=20&layer=lipas_kaikki_pisteet");
         
         map.addLayer(wms);
         
