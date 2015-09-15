@@ -45,11 +45,7 @@
         );
         map.addLayer(wms);
         
-	map.setCenter(
-        new OpenLayers.LonLat(24.9, 60.2).transform(
-            new OpenLayers.Projection("EPSG:4326"),
-            map.getProjectionObject()), 10
-    	);
+	map.setCenter(new OpenLayers.LonLat(24.9, 60.2), 10);
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
