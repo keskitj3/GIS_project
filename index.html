@@ -30,6 +30,14 @@
         OSMmap = new OpenLayers.Layer.OSM();
         map.addLayer(OSMmap);
         
+        var wms = new OpenLayers.Layer.WMS(
+            "Liikuntapaikat",
+            "http://localhost:8080/geoserver/wms?",
+            {layers: "GIS_project:lipas_kaikki_pisteet", 
+            transparent: true}
+        );
+        map.addLayer(wms);
+      
 	lon = 2763700;
 	lat = 8441000;
 	map.setCenter(new OpenLayers.LonLat([lon,lat]), [5]);
@@ -38,6 +46,11 @@
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
+        
+        map.addControl(new OpenLayers.Control.KeyboardDefaults());          
+        map.addControl(new OpenLayers.Control.Navigation());
+        map.addControl(new OpenLayers.Control.MousePosition());   
+        
         
       </script>
 
