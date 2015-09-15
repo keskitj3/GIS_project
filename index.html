@@ -26,26 +26,6 @@
       <div id="map" style="height:450px"></div>
       <script>
       
-      //Defining projections
-        var geographic = new OpenLayers.Projection("EPSG:4326");
-        var mercator = new OpenLayers.Projection("EPSG:900913");¨
-      //Defining bounds    
-        var world = new OpenLayers.Bounds(-180, -89, 180, 89).transform(
-            geographic, mercator
-        );  
-      //Defining map center    
-        var lund_center = new OpenLayers.LonLat(13.19, 55.71).transform(
-            geographic, mercator
-        );
-      var options = {
-            projection: mercator,
-            displayProjection: geographic,
-            units: "m",
-            maxExtent: world,
-            maxResolution: 156543.0399,
-
-        };
-        
         //isBaseLayer: true
         map = new OpenLayers.Map("map", {
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
