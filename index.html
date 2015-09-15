@@ -8,9 +8,11 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <script src="http://openlayers.org/api/OpenLayers.js"></script>
-    <script src="http://lipas.cc.jyu.fi/geoserver/lipas/wms?"></script>
+    
+    <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
   </head>
+  
   <body>
     <section class="page-header">
       <h1 class="project-name">Gis project</h1>
@@ -22,14 +24,34 @@
       <h3>OpenLayers Map</h3>
       
       <div id="map" style="height:450px"></div>
-      <script src="OpenLayers.js"></script>
       <script>
-        map = new OpenLayers.Map("map", { 
-		isBaseLayer: true,
+      
+      //Defining projections
+        var geographic = new OpenLayers.Projection("EPSG:4326");
+        var mercator = new OpenLayers.Projection("EPSG:900913");¨
+      //Defining bounds    
+        var world = new OpenLayers.Bounds(-180, -89, 180, 89).transform(
+            geographic, mercator
+        );  
+      //Defining map center    
+        var lund_center = new OpenLayers.LonLat(13.19, 55.71).transform(
+            geographic, mercator
+        );
+      var options = {
+            projection: mercator,
+            displayProjection: geographic,
+            units: "m",
+            maxExtent: world,
+            maxResolution: 156543.0399,
+
+        };
+        
+        //isBaseLayer: true
+        map = new OpenLayers.Map("map", {
 		units:'m', controls: [new OpenLayers.Control.Navigation()]});
         OSMmap = new OpenLayers.Layer.OSM();
         map.addLayer(OSMmap);
-        
+
         var wms = new OpenLayers.Layer.WMS(
             "Liikuntapaikat",
             "http://localhost:8080/geoserver/wms?",
@@ -46,12 +68,7 @@
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
-        
-        map.addControl(new OpenLayers.Control.KeyboardDefaults());          
-        map.addControl(new OpenLayers.Control.Navigation());
-        map.addControl(new OpenLayers.Control.MousePosition());   
-        
-        
+
       </script>
 
       <footer class="site-footer">
