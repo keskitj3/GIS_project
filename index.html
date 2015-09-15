@@ -28,7 +28,6 @@
       
         map = new OpenLayers.Map("map", {
 		units:'m',
-		isBaseLayer: true,
 		projection: new OpenLayers.Projection("EPSG:900913"),
 		controls: [new OpenLayers.Control.Navigation()]
         	
@@ -45,7 +44,7 @@
         );
         map.addLayer(wms);
         
-	map.setCenter(new OpenLayers.LonLat(24.9, 60.2), 10);
+	//map.setCenter(new OpenLayers.LonLat(24.9, 60.2), 10);
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
