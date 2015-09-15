@@ -34,11 +34,13 @@
 
         var wms = new OpenLayers.Layer.WMS(
             "Liikuntapaikat",
-            "http://localhost:8080/geoserver/wms?",
-            {layers: "GIS_project:lipas_kaikki_pisteet"}
+            "http://localhost:8080/geoserver/wms",
+            {layers: "GIS_project:lipas_kaikki_pisteet",
+            transperent: true
+            }
         );
         map.addLayer(wms);
-      
+    
 	lon = 2763700;
 	lat = 8441000;
 	map.setCenter(new OpenLayers.LonLat([lon,lat]), [5]);
