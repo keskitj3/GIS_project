@@ -35,8 +35,7 @@
         var wms = new OpenLayers.Layer.WMS(
             "Liikuntapaikat",
             "http://localhost:8080/geoserver/wms?",
-            {layers: "GIS_project:lipas_kaikki_pisteet", 
-            transparent: true}
+            {layers: "GIS_project:lipas_kaikki_pisteet"}
         );
         map.addLayer(wms);
       
