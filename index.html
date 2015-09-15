@@ -40,9 +40,11 @@
         );
         map.addLayer(wms);
     
-	lon = 2763700;
-	lat = 8441000;
-	map.setCenter(new OpenLayers.LonLat([lon,lat]), [5]);
+	map.setCenter(
+        new OpenLayers.LonLat(24.9, 60.2).transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            map.getProjectionObject()), 5
+    	);
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
