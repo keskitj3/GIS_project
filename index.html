@@ -26,9 +26,9 @@
       <div id="map" style="height:450px"></div>
       <script>
       
-        //isBaseLayer: true
         map = new OpenLayers.Map("map", {
 		units:'m',
+		isBaseLayer: true,
 		projection: new OpenLayers.Projection("EPSG:900913"),
 		controls: [new OpenLayers.Control.Navigation()]
         	
