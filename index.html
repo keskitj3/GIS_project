@@ -29,7 +29,6 @@
         map = new OpenLayers.Map("map", 
         	{
 		units:'m',
-		projection: new OpenLayers.Projection("EPSG:900913"),
 		controls: [new OpenLayers.Control.Navigation()]
         });
         OSMmap = new OpenLayers.Layer.OSM();
@@ -40,8 +39,7 @@
             {
             layers: "GIS_project:lipas_kaikki_pisteet",
             transparent: true,
-            format: 'image/png',
-            projection: "EPSG:900913"
+            format: 'image/png'
             },
             {
             'opacity': 0.66, 'isBaseLayer': false
