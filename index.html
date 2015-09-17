@@ -46,27 +46,35 @@
         //});
         //map.addLayers([OSMmap, wms]);
         
-        navigator.geolocation.getCurrentPosition(function(position) {       
-            document.getElementById('anzeige').innerHTML="Latitude: " + position.coords.latitude + "Longitude: " +
-            position.coords.longitude + "<p>";
-            var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-                        .transform(new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
-                        map.getProjectionObject() //to Spherical Mercator Projection
-                        );
-            markers.addMarker(new OpenLayers.Marker(lonLat));
-            map.setCenter(lonLat, 14 // Zoom level
-            );
-        });
-     	
-        map.setCenter(new OpenLayers.LonLat(lonLat) // Center of the map (3,3)
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-          ), 15 // Zoom level
-         );
+        var lat=46.2078;
+	var lon=6.147;
+	var zoom=14;
+	
 	var markers = new OpenLayers.Layer.Markers( "Markers" );
-        map.addLayer(markers);
-        
+	map.addLayer(markers);
+	
+	// Recenter on user position
+	navigator.geolocation.getCurrentPosition(function(position) {       
+	        document.getElementById('info').innerHTML
+	            = " Latitude: " + 
+	                position.coords.latitude + 
+	              " Longitude: " +
+	                position.coords.longitude;
+	
+	        var lonLat = new OpenLayers.LonLat(position.coords.longitude,
+	                                position.coords.latitude)
+	                  .transform(
+	                              new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
+	                              map.getProjectionObject() //to Spherical Mercator Projection
+	                    );
+	                                        
+	        markers.addMarker(new OpenLayers.Marker(lonLat));
+	       
+	        map.setCenter(lonLat, 14 // Zoom level
+	        );
+	
+	    });
+
 	//lon = 2763700;
  	//lat = 8441000;
  	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [12]);
@@ -80,6 +88,7 @@
 
       <footer class="site-footer">
         <h>GIS Software Development course</h>
+        <p id="info"></p>
       </footer>
 
     </section>
