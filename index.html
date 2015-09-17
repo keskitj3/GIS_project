@@ -49,17 +49,7 @@
         
 	lon = 2763700;
  	lat = 8441000;
- 	map.setCenter(new OpenLayers.LonLat([lon,lat]), [10]);
-	        
-	var geolocate = new OpenLayers.Control.Geolocate({
-	    bind: false,
-	    geolocationOptions: {
-	        enableHighAccuracy: false,
-	        maximumAge: 0,
-	        timeout: 7000
-	    }
-	});
-	map.addControl(geolocate);
+ 	map.setCenter(new OpenLayers.LonLat([lon,lat]), [12]);
         
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
