@@ -46,9 +46,9 @@
         //});
         //map.addLayers([OSMmap, wms]);
         
-        var lat=46.2078;
-	var lon=6.147;
-	var zoom=14;
+        var lat = 60.170833;
+	var lon = 24.9375;
+	var zoom = 14;
 	
 	var markers = new OpenLayers.Layer.Markers( "Markers" );
 	map.addLayer(markers);
@@ -70,15 +70,11 @@
 	                                        
 	        markers.addMarker(new OpenLayers.Marker(lonLat));
 	       
-	        map.setCenter(lonLat, 14 // Zoom level
+	        map.setCenter(lonLat, zoom // Zoom level
 	        );
 	
 	    });
 
-	//lon = 2763700;
- 	//lat = 8441000;
- 	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [12]);
-        
         map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
