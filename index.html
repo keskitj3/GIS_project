@@ -21,19 +21,14 @@
 	  controls: [new OpenLayers.Control.Navigation()]
         });
         OSMmap = new OpenLayers.Layer.OSM();
-        map.addLayer(OSMmap);
+        //map.addLayer(OSMmap);
 
-        //var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
-        //    "http://localhost:8080/geoserver/GIS_project/wms",
-        //    {
-        //    layers: "GIS_project:lipas_kaikki_pisteet",
-        //    transparent: true,
-        //    format: 'image/png'
-        //    },
-        //    {
-        //    'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
-        //});
-        //map.addLayers([OSMmap, wms]);
+        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://localhost:8080/geoserver/GIS_project/wms",
+            	{layers: "GIS_project:lipas_kaikki_pisteet",
+            	transparent: true,
+            	format: 'image/png'},
+            	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+        map.addLayers([OSMmap, wms]);
         
         var lat = 60.170833;
         var lon = 24.9375;
@@ -67,7 +62,6 @@
       
       <footer class="site-footer">
         <h>GIS Software Development course</h>
-      	<p id="Location"></p>
       </footer>
 
     </section>
