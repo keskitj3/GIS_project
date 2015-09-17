@@ -73,7 +73,8 @@
             new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
           ), 15 // Zoom level
          );
-	
+	var markers = new OpenLayers.Layer.Markers( "Markers" );
+        map.addLayer(markers);
 	//lon = 2763700;
  	//lat = 8441000;
  	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [12]);
