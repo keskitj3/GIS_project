@@ -8,7 +8,7 @@
   
   <body>
     <section class="page-header">
-      <h1 class="project-name">OpenLayer Map</h1>
+      <h1 class="project-name">OpenLayers Map</h1>
     </section>
   
     <section class="main-content">
@@ -54,7 +54,7 @@
       		.transform(new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
       		map.getProjectionObject()); //to Spherical Mercator Projection
       		markers.addMarker(new OpenLayers.Marker(lonLat));
-        map.setCenter(lonLat, zoom); // Zoom level
+        map.setCenter(lonLat, zoom);
         });
       
         map.addControl(new OpenLayers.Control.LayerSwitcher());
