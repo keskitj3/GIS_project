@@ -23,7 +23,7 @@
       	
       <h3>OpenLayers Map</h3>
       
-      <div id="map" style="height:600px;width800:px"></div>
+      <div id="map" style="height:400px;width800:px"></div>
       <script>
       
         map = new OpenLayers.Map("map", 
@@ -79,12 +79,13 @@
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
-
+	
+	<p id="info"></p>
+	
       </script>
 
       <footer class="site-footer">
         <h>GIS Software Development course</h>
-        <p id="info"></p>
       </footer>
 
     </section>
