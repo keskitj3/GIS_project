@@ -8,16 +8,13 @@
   
   <body>
     <section class="page-header">
-      <h1 class="project-name">GIS project</h1>
+      <h1 class="project-name">OpenLayer Map</h1>
     </section>
   
     <section class="main-content">
-      	
-      <h3>OpenLayers Map</h3>
-      
       <div id="map" style="height:400px;width800:px"></div>
-      <script>
       
+      <script>
         map = new OpenLayers.Map("map", 
           {
 	  units:'m',
@@ -47,23 +44,17 @@
       
         // Recenter on user position
         navigator.geolocation.getCurrentPosition(function(position) {
-      	  	document.getElementById('info').innerHTML
-      	  	= " Latitude: " + 
+      	  	document.getElementById('Location').innerHTML= 
+      	  	" Latitude: " + 
       	  	position.coords.latitude + 
       	  	" Longitude: " +
       	  	position.coords.longitude;
       	
       	var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-      		.transform(
-      		new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
-      		map.getProjectionObject() //to Spherical Mercator Projection
-      		);
-      		
+      		.transform(new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
+      		map.getProjectionObject()); //to Spherical Mercator Projection
       		markers.addMarker(new OpenLayers.Marker(lonLat));
-      
-        map.setCenter(lonLat, zoom // Zoom level
-        );
-      
+        map.setCenter(lonLat, zoom); // Zoom level
         });
       
         map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -74,7 +65,7 @@
       
       <footer class="site-footer">
         <h>GIS Software Development course</h>
-      	<p id="info"></p>
+      	<p id="Location"></p>
       </footer>
 
     </section>
