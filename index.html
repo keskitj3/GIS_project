@@ -32,20 +32,19 @@
 		controls: [new OpenLayers.Control.Navigation()]
         });
         OSMmap = new OpenLayers.Layer.OSM();
-        //map.addLayer(OSMmap);
+        map.addLayer(OSMmap);
 
-        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
-            "http://localhost:8080/geoserver/GIS_project/wms",
-            {
-            layers: "GIS_project:lipas_kaikki_pisteet",
-            transparent: true,
-            format: 'image/png'
-            },
-            {
-            'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
-        });
-        
-        map.addLayers([OSMmap, wms]);
+        //var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
+        //    "http://localhost:8080/geoserver/GIS_project/wms",
+        //    {
+        //    layers: "GIS_project:lipas_kaikki_pisteet",
+        //    transparent: true,
+        //    format: 'image/png'
+        //    },
+        //    {
+        //    'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
+        //});
+        //map.addLayers([OSMmap, wms]);
         
         navigator.geolocation.getCurrentPosition(function(position) {       
             document.getElementById('anzeige').innerHTML="Latitude: " + position.coords.latitude + "   Longitude: " +
@@ -75,6 +74,7 @@
          );
 	var markers = new OpenLayers.Layer.Markers( "Markers" );
         map.addLayer(markers);
+        
 	//lon = 2763700;
  	//lat = 8441000;
  	//map.setCenter(new OpenLayers.LonLat([lon,lat]), [12]);
