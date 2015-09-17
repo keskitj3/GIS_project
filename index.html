@@ -26,62 +26,62 @@
       <div id="map" style="height:400px;width800:px"></div>
       <script>
       
-        map = new OpenLayers.Map("map", 
-        	{
-		units:'m',
-		controls: [new OpenLayers.Control.Navigation()]
-        });
-        OSMmap = new OpenLayers.Layer.OSM();
-        map.addLayer(OSMmap);
+      map = new OpenLayers.Map("map", 
+        {
+	units:'m',
+	controls: [new OpenLayers.Control.Navigation()]
+      });
+      OSMmap = new OpenLayers.Layer.OSM();
+      map.addLayer(OSMmap);
 
-        //var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
-        //    "http://localhost:8080/geoserver/GIS_project/wms",
-        //    {
-        //    layers: "GIS_project:lipas_kaikki_pisteet",
-        //    transparent: true,
-        //    format: 'image/png'
-        //    },
-        //    {
-        //    'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
-        //});
-        //map.addLayers([OSMmap, wms]);
+      //var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
+      //    "http://localhost:8080/geoserver/GIS_project/wms",
+      //    {
+      //    layers: "GIS_project:lipas_kaikki_pisteet",
+      //    transparent: true,
+      //    format: 'image/png'
+      //    },
+      //    {
+      //    'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
+      //});
+      //map.addLayers([OSMmap, wms]);
         
-        var lat = 60.170833;
-	var lon = 24.9375;
-	var zoom = 14;
-	
-	var markers = new OpenLayers.Layer.Markers( "Markers" );
-	map.addLayer(markers);
-	
-	// Recenter on user position
-	navigator.geolocation.getCurrentPosition(function(position) {       
-	        document.getElementById('info').innerHTML
-	            = " Latitude: " + 
-	                position.coords.latitude + 
-	              " Longitude: " +
-	                position.coords.longitude;
-	
-	        var lonLat = new OpenLayers.LonLat(position.coords.longitude,
-	                                position.coords.latitude)
-	                  .transform(
-	                              new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
-	                              map.getProjectionObject() //to Spherical Mercator Projection
-	                    );
-	                                        
-	        markers.addMarker(new OpenLayers.Marker(lonLat));
-	       
-	        map.setCenter(lonLat, zoom // Zoom level
-	        );
-	
-	    });
-	
-	map.addControl(new OpenLayers.Control.LayerSwitcher());
-	map.addControl(new OpenLayers.Control.ScaleLine());
-	map.addControl(new OpenLayers.Control.MousePosition());
-	map.addControl(new OpenLayers.Control.PanZoomBar());
-	
-	<p id="info"></p>
-	
+      var lat = 60.170833;
+      var lon = 24.9375;
+      var zoom = 14;
+      
+      var markers = new OpenLayers.Layer.Markers( "Markers" );
+      map.addLayer(markers);
+      
+      // Recenter on user position
+      navigator.geolocation.getCurrentPosition(function(position) {
+      	document.getElementById('info').innerHTML
+      	= " Latitude: " + 
+      	position.coords.latitude + 
+      	" Longitude: " +
+      	position.coords.longitude;
+      	
+      	var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+      		.transform(
+      		new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
+      		map.getProjectionObject() //to Spherical Mercator Projection
+      		);
+      		
+      		markers.addMarker(new OpenLayers.Marker(lonLat));
+      
+      map.setCenter(lonLat, zoom // Zoom level
+      );
+      
+      });
+      
+      map.addControl(new OpenLayers.Control.LayerSwitcher());
+      map.addControl(new OpenLayers.Control.ScaleLine());
+      map.addControl(new OpenLayers.Control.MousePosition());
+      map.addControl(new OpenLayers.Control.PanZoomBar());
+      </script>
+      
+      <script>
+      	<p id="info"></p>
       </script>
 
       <footer class="site-footer">
@@ -89,7 +89,5 @@
       </footer>
 
     </section>
-
-  
   </body>
 </html>
