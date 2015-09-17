@@ -23,7 +23,7 @@
       	
       <h3>OpenLayers Map</h3>
       
-      <div id="map" style="height:450px"></div>
+      <div id="map" style="height:80%", "width:80%"></div>
       <script>
       
         map = new OpenLayers.Map("map", 
@@ -74,8 +74,8 @@
 	        );
 	
 	    });
-
-        map.addControl(new OpenLayers.Control.LayerSwitcher());
+	
+	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.MousePosition());
 	map.addControl(new OpenLayers.Control.PanZoomBar());
