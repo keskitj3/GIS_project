@@ -7,59 +7,87 @@
   </head>
   
   <body>
+    
+    <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
     <section class="page-header">
       <h1 class="project-name">OpenLayers Map</h1>
     </section>
   
+    <!-- Tassa osiossa luodaan kartta ja lisataan siihen funktiot -->
     <section class="main-content">
-      <div id="map" style="height:400px;width800:px"></div>
       
+      <!-- Lisaa kartan halutulla koolla -->
+      <div id="map" style="height:500px"></div>
+      
+      <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
+        // Luo kartan, jossa on navigointi mahdollisuus
         map = new OpenLayers.Map("map", 
-          {
-	  units:'m',
-	  controls: [new OpenLayers.Control.Navigation()]
-        });
+        	{units:'m',
+		controls: [new OpenLayers.Control.Navigation()]
+        	});
+          	
+        // Lisaa openstreetmapin layeriksi
         OSMmap = new OpenLayers.Layer.OSM();
-        //map.addLayer(OSMmap);
 
-        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://localhost:8080/geoserver/GIS_project/wms",
-            	{layers: "GIS_project:lipas_kaikki_pisteet",
-            	transparent: true,
-            	format: 'image/png'},
-            	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-        map.addLayers([OSMmap, wms]);
+	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
+	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
+        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://130.233.249.20:8080/geoserver/WMS/wms",
+        	{layers: "WMS:wms-testi",
+        	transparent: true,
+        	format: 'image/png'},
+        	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
         
+        // Lisaa WFS tason, mutta jostai syysta se ei toimi :(
+	var wfs = new OpenLayers.Layer.Vector("WFS", {
+		strategies: [new OpenLayers.Strategy.Fixed()],
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			url: "http://130.233.249.20:8080/geoserver/wfs",
+			featureType: "WMS:WFS_pisteet",
+			featureNS: "pesonet1.github.io/GIS_project",
+			geometryName: "the_geom"})
+		});
+
+        
+	// Lisataan aikasemmin luodut tasot kartalle
+        map.addLayers([OSMmap, wms, wfs]);
+        
+        // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
         var lat = 60.170833;
         var lon = 24.9375;
         var zoom = 14;
       
+      	// Lisaa merkintakuviot yhdeksi tasoksi
         var markers = new OpenLayers.Layer.Markers( "Markers" );
         map.addLayer(markers);
       
-        // Recenter on user position
+        // Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
         navigator.geolocation.getCurrentPosition(function(position) {
       	  	document.getElementById('Location').innerHTML= 
-      	  	" Latitude: " + 
-      	  	position.coords.latitude + 
-      	  	" Longitude: " +
-      	  	position.coords.longitude;
-      	
-      	var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-      		.transform(new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
-      		map.getProjectionObject()); //to Spherical Mercator Projection
-      		markers.addMarker(new OpenLayers.Marker(lonLat));
-        map.setCenter(lonLat, zoom);
+      	  	" Latitude: " + position.coords.latitude + 
+      	  	" Longitude: " + position.coords.longitude;
+      		
+      		// Tallentaa koordinaatit lonlat muuttujaan
+      		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+      		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
+      		
+      		map.getProjectionObject()); // to Spherical Mercator Projection
+      		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
+        	map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
         });
       
+      	// Lisataan kartalle muutamat tarkeat controllit
         map.addControl(new OpenLayers.Control.LayerSwitcher());
         map.addControl(new OpenLayers.Control.ScaleLine());
         map.addControl(new OpenLayers.Control.MousePosition());
         map.addControl(new OpenLayers.Control.PanZoomBar());
       </script>
       
+      <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
       <p id="Location"></p>
       
+      <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
       <footer class="site-footer">
         <h>GIS Software Development course</h>
       </footer>
