@@ -57,7 +57,7 @@
 //			featureNS: "pesonet1.github.io/GIS_project",
 //			geometryName: "the_geom"})
 //		});
-		loader: function(extent, resolution, projection) {
+		loader: function(extent, projection) {
 	 	var url = 'http://130.233.249.20:8080/geoserver/wfs' + extent.join(',') + ',EPSG:3857';
     		// use jsonp: false to prevent jQuery from adding the "callback"
     		// parameter to the URL
