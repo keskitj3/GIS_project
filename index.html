@@ -43,18 +43,30 @@
         	transparent: true,
         	format: 'image/png'},
         	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+	//koitetaan korjata WFS
+	var geojsonFormat = new ol.format.GeoJSON();
 	
         // Lisaa WFS tason, mutta jostai syysta se ei toimi :(
-	var wfs = new OpenLayers.Layer.Vector("WFS", {
-		strategies: [new OpenLayers.Strategy.Fixed()],
-		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			url: "http://130.233.249.20:8080/geoserver/wfs",
-			featureType: "WMS:WFS_pisteet",
-			featureNS: "pesonet1.github.io/GIS_project",
-			geometryName: "the_geom"})
-		});
-
+	//var wfs = new OpenLayers.Layer.Vector("WFS", {
+	var wfs = new ol.source.Vector({
+//		strategies: [new OpenLayers.Strategy.Fixed()],
+//		protocol: new OpenLayers.Protocol.WFS({
+//			version: "1.1.0",
+//			url: "http://130.233.249.20:8080/geoserver/wfs",
+//			featureType: "WMS:WFS_pisteet",
+//			featureNS: "pesonet1.github.io/GIS_project",
+//			geometryName: "the_geom"})
+//		});
+		loader: function(extent, resolution, projection) {
+	 	var url = 'http://130.233.249.20:8080/geoserver/wfs' + extent.join(',') + ',EPSG:3857';
+    		// use jsonp: false to prevent jQuery from adding the "callback"
+    		// parameter to the URL
+    		$.ajax({url: url, dataType: 'jsonp', jsonp: false});
+  	},
+  	strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+    	maxZoom: 19
+  	}))
+	});
         
 	// Lisataan aikasemmin luodut tasot kartalle
         map.addLayers([OSMmap, wms, vaesto, wfs]);
