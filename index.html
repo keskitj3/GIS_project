@@ -4,20 +4,47 @@
     <meta charset="UTF-8">
     <title>GIS_project</title>
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
+    <style>
+    	#header {
+    background-color:#006600;
+    color:black;
+    text-align:center;
+    width:100%;
+      	}
+	#nav {
+    line-height:30px;
+    background-color:#00CC00;
+    height:500px;
+    width:10%;
+    float:left;
+	}
+	#footer {
+    background-color:#006600;
+    color:black;
+    clear:both;
+    text-align:left;
+    width:100%;
+	</style>
   </head>
   
   <body>
     
     <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
-    <section class="page-header">
-      <h1 class="project-name">OpenLayers Map</h1>
-    </section>
+    <div id="header">
+    <h1>Liikuntapaikat kartalla</h1>
+    </div>
+    
+    <!-- Sivupalkki -->
+    <div id="nav">
+    <button type="button" onclick="alert('Doesn't work yet');">Find route</button>
+    <button type="button" onclick="alert('Doesn't work yet');">Analyze</button>
+    </div>
   
     <!-- Tassa osiossa luodaan kartta ja lisataan siihen funktiot -->
     <section class="main-content">
       
       <!-- Lisaa kartan halutulla koolla -->
-      <div id="map" style="height:500px"></div>
+      <div id="map" style="height:500px; width:90%"></div>
       
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
@@ -29,7 +56,6 @@
           	
         // Lisaa openstreetmapin layeriksi
         OSMmap = new OpenLayers.Layer.OSM();
-
 	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
 	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
         var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://130.233.249.20:8080/geoserver/WMS/wms",
@@ -37,39 +63,32 @@
         	transparent: true,
         	format: 'image/png'},
         	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-
 	var vaesto = new OpenLayers.Layer.WMS("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
         	{layers: "WMS:vaki2014_1km",
         	transparent: true,
         	format: 'image/png'},
         	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-	//koitetaan korjata WFS
-	var geojsonFormat = new ol.format.GeoJSON();
+        	
+        var vaesto_kp = new OpenLayers.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
+        	{layers: "WMS:vaki2014_1km_kp",
+        	transparent: true,
+        	format: 'image/png'},
+        	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'}); 
 	
         // Lisaa WFS tason, mutta jostai syysta se ei toimi :(
-	//var wfs = new OpenLayers.Layer.Vector("WFS", {
-	var wfs = new ol.source.Vector({
-//		strategies: [new OpenLayers.Strategy.Fixed()],
-//		protocol: new OpenLayers.Protocol.WFS({
-//			version: "1.1.0",
-//			url: "http://130.233.249.20:8080/geoserver/wfs",
-//			featureType: "WMS:WFS_pisteet",
-//			featureNS: "pesonet1.github.io/GIS_project",
-//			geometryName: "the_geom"})
-//		});
-		loader: function(extent, projection) {
-	 	var url = 'http://130.233.249.20:8080/geoserver/wfs' + extent.join(',') + ',EPSG:3857';
-    		// use jsonp: false to prevent jQuery from adding the "callback"
-    		// parameter to the URL
-    		$.ajax({url: url, dataType: 'jsonp', jsonp: false});
-  	},
-  	strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
-    	maxZoom: 19
-  	}))
-	});
+	var wfs = new OpenLayers.Layer.Vector("WFS", {
+		strategies: [new OpenLayers.Strategy.Fixed()],
+		protocol: new OpenLayers.Protocol.WFS({
+			version: "1.1.0",
+			url: "http://130.233.249.20:8080/geoserver/wfs",
+			featureType: "WMS:WFS_pisteet",
+			featureNS: "pesonet1.github.io/GIS_project",
+			geometryName: "the_geom"})
+		});
+	
         
 	// Lisataan aikasemmin luodut tasot kartalle
-        map.addLayers([OSMmap, wms, vaesto, wfs]);
+        map.addLayers([OSMmap, wms, wfs]);
         
         // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
         var lat = 60.170833;
@@ -106,9 +125,9 @@
       <p id="Location"></p>
       
       <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
-      <footer class="site-footer">
-        <h>GIS Software Development course</h>
-      </footer>
+      <div id=footer>
+      	<p>GIS Software Development course</p>
+      </div>
 
     </section>
   </body>
