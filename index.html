@@ -1,37 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>GIS_project</title>
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://openlayers.org/en/v3.10.1/css/ol.css" type="text/css">
-    <script src="http://openlayers.org/en/v3.10.1/build/ol.js"></script>
-    <style>
-    	#header {
-    background-color:#006600;
-    color:black;
-    text-align:center;
-    width:100%;
-      	}
-	#nav {
-    line-height:30px;
-    background-color:#00CC00;
-    height:500px;
-    width:10%;
-    float:left;
-	}
-	#footer {
-    background-color:#006600;
-    color:black;
-    clear:both;
-    text-align:left;
-    width:100%;
-    
-    
-    
-    .ol-popup {
+<html>
+<head>
+<title>Popup example</title>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://openlayers.org/en/v3.10.1/css/ol.css" type="text/css">
+<script src="http://openlayers.org/en/v3.10.1/build/ol.js"></script>
+<style>
+.ol-popup {
   position: absolute;
   background-color: white;
   -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
@@ -74,36 +51,24 @@
   content: "✖";
 }
 
-    
-	</style>
-  </head>
-  
-  <body>
-    
-    <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
-    <div id="header">
-    <h1>Liikuntapaikat kartalla</h1>
+</style>
+</head>
+<body>
+<div class="container-fluid">
+
+<div class="row-fluid">
+  <div class="span12">
+    <div id="map" class="map"></div>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
     </div>
-    
-    <!-- Sivupalkki -->
-    <div id="nav">
-    <button type="button" onclick="alert('Doesn't work yet');">Find route</button>
-    <button type="button" onclick="alert('Doesn't work yet');">Analyze</button>
-    </div>
-  
-    <!-- Tassa osiossa luodaan kartta ja lisataan siihen funktiot -->
-    <section class="main-content">
-      
-      <!-- Lisaa kartan halutulla koolla -->
-      <div id="map" style="height:500px; width:90%"></div>
-      
-      <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
-      <script>
-      
-      
-      
-      
-      /**
+  </div>
+</div>
+
+</div>
+<script>
+/**
  * Elements that make up the popup.
  */
 var container = document.getElementById('popup');
@@ -169,120 +134,6 @@ map.on('singleclick', function(evt) {
   overlay.setPosition(coordinate);
 });
 
-        // Luo kartan, jossa on navigointi mahdollisuus
-        /*var map = new ol.Map({
-  view: new ol.View({
-    center: [0, 0],
-    zoom: 1
-  }),
-  layers: [
-    new ol.layer.Tile({
-      source: new ol.source.MapQuest({layer: 'osm'})
-    })
-  ],
-  target: 'map'
-});
-          
-        var map = new ol.Map({
-  	layers: [
-    	new ol.layer.Tile({
-	 source: new ol.source.TileJSON({
-	 url: 'http://api.tiles.mapbox.com/v3/' +
-            'mapbox.natural-earth-hypso-bathy.jsonp',
-        crossOrigin: 'anonymous'
-      })
-    })
-  ],
-  renderer: exampleNS.getRendererFromQueryString(),
-  overlays: [overlay],
-  target: 'map',
-  view: new ol.View({
-    center: [0, 0],
-    zoom: 2
-  })
-});  	
-        
-        // Lisaa openstreetmapin layeriksi
-        OSMmap = new OpenLayers.Layer.OSM();*/
-	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
-	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
-        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://130.233.249.20:8080/geoserver/WMS/wms",
-        	{layers: "WMS:wms-testi",
-        	transparent: true,
-        	format: 'image/png'},
-        	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-	var vaesto = new OpenLayers.Layer.WMS("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
-        	{layers: "WMS:vaki2014_1km",
-        	transparent: true,
-        	format: 'image/png'},
-        	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-        	
-        var vaesto_kp = new OpenLayers.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
-        	{layers: "WMS:vaki2014_1km_kp",
-        	transparent: true,
-        	format: 'image/png'},
-        	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'}); 
-	
-        // Lisaa WFS tason, mutta jostai syysta se ei toimi :(
-	var wfs = new OpenLayers.Layer.Vector("WFS", {
-		strategies: [new OpenLayers.Strategy.Fixed()],
-		protocol: new OpenLayers.Protocol.WFS({
-			version: "1.1.0",
-			url: "http://130.233.249.20:8080/geoserver/wfs",
-			featureType: "WMS:WFS_pisteet",
-			featureNS: "http://130.233.249.20",
-			geometryName: "point"})
-		});
-	
-        
-	// Lisataan aikasemmin luodut tasot kartalle
-        //map.addLayers([OSMmap, wms, wfs]);
-        
-        //LISAYS
-        map.addLayers([wms, wfs]);
-        
-        
-        // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
-        var lat = 60.170833;
-        var lon = 24.9375;
-        var zoom = 14;
-      
-      	// Lisaa merkintakuviot yhdeksi tasoksi
-        var markers = new OpenLayers.Layer.Markers( "Markers" );
-        map.addLayer(markers);
-      
-        // Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
-        navigator.geolocation.getCurrentPosition(function(position) {
-      	  	document.getElementById('Location').innerHTML= 
-      	  	" Latitude: " + position.coords.latitude + 
-      	  	" Longitude: " + position.coords.longitude;
-      		
-      		// Tallentaa koordinaatit lonlat muuttujaan
-      		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-      		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
-      		
-      		map.getProjectionObject()); // to Spherical Mercator Projection
-      		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-        	map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
-        });
-      
-      	// Lisataan kartalle muutamat tarkeat controllit
-        map.addControl(new OpenLayers.Control.LayerSwitcher());
-        map.addControl(new OpenLayers.Control.ScaleLine());
-        map.addControl(new OpenLayers.Control.MousePosition());
-        map.addControl(new OpenLayers.Control.PanZoomBar());
-        
-       
-      </script>
-      
-      <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
-      <p id="Location"></p>
-      
-      <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
-      <div id=footer>
-      	<p>GIS Software Development course</p>
-      </div>
-
-    </section>
-  </body>
+</script>
+</body>
 </html>
