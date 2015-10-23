@@ -51,12 +51,13 @@
 });
 */
 	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
-	var LiikuntaSource = new ol.layer.ImageWMS({
-		url: 'http://130.233.249.20:8080/geoserver/WMS/wms',
-		params: {'LAYERS': 'WMS:liikuntapaikat'},
-		serverType: 'geoserver',
+	var LiikuntaSource = new ol.source.GeoJSON({
+		url: 'http://130.233.249.20:8080/geoserver/WMS/wms'
+	});
+	/*	params: {'LAYERS': 'WMS:liikuntapaikat'},
+	//	serverType: 'geoserver',
 		crossOrigin: ''
-	})
+	})*/
 	/*	"Liikuntapaikat WMS", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:liikuntapaikat",
 		transparent: true,
