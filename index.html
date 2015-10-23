@@ -42,13 +42,30 @@
       	
 	
 
-	
+	/*malli
+	var wmsSource = new ol.source.TileWMS({
+  url: 'http://demo.boundlessgeo.com/geoserver/wms',
+  params: {'LAYERS': 'ne:ne'},
+  serverType: 'geoserver',
+  crossOrigin: ''
+});
+*/
 	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
-	var liikuntapaikat = new ol.layer.Vector("Liikuntapaikat WMS", "http://130.233.249.20:8080/geoserver/WMS/wms",
+	var LiikuntaSource = new ol.layer.TileWMS({
+		url: 'http://130.233.249.20:8080/geoserver/WMS/wms',
+		params: {'LAYERS': 'WMS:liikuntapaikat'},
+		serverType: 'geoserver',
+		crossOrigin: ''
+	})
+	/*	"Liikuntapaikat WMS", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:liikuntapaikat",
 		transparent: true,
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+	*/	
+	var liikuntalayer = new ol.layer.Tile({
+  		source: LiikuntaSource
+		});
 	
 	var vaesto = new ol.layer.Vector("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:vaki2014_1km",
@@ -133,7 +150,7 @@
   		layers: [
     			new ol.layer.Tile({
       			source: new ol.source.OSM()
-    }, liikuntapaikat, vaesto, vaesto_kp)
+    }, LiikuntaLayer, vaesto, vaesto_kp)
   ],
   target: 'map',
   view: new ol.View({
