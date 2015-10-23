@@ -54,11 +54,10 @@
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
       
-  map = new OpenLayers.Map("map", 
+var map = new OpenLayers.Map("map", 
         	{units:'m',
 		controls: [new OpenLayers.Control.Navigation()]
-        	},
-        	);    
+        	});    
 
       
         // Luo kartan, jossa on navigointi mahdollisuus
