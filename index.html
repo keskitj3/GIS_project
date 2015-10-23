@@ -159,7 +159,7 @@ map.on('singleclick', function(evt) {
   overlay.setPosition(coordinate);
 });
 
-	var vaesto_kp = new OpenLayers.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
+	var vaesto_kp = new ol.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:vaki2014_1km_kp",
 		transparent: true,
 		format: 'image/png'},
