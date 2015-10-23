@@ -68,7 +68,7 @@
   		source: LiikuntaSource
 		});
 	
-	var vaesto = new ol.layer.Vector("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
+	/*var vaesto = new ol.layer.Vector("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:vaki2014_1km",
 		transparent: true,
 		format: 'image/png'},
@@ -80,7 +80,7 @@
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
  
-	/* Lisaa WFS tason
+	 Lisaa WFS tason
 	var liikuntapaikat_wfs = new OpenLayers.Layer.Vector("Liikuntapaikat WFS", {
 		strategies: [new OpenLayers.Strategy.BBOX()],
 		protocol: new OpenLayers.Protocol.WFS({
@@ -120,11 +120,11 @@
 	//map.addLayer(markers);
 	
 	// Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
-	navigator.geolocation.getCurrentPosition(function(position) {
+/*	navigator.geolocation.getCurrentPosition(function(position) {
 		document.getElementById('Location').innerHTML= 
 		" Latitude: " + position.coords.latitude + 
 		" Longitude: " + position.coords.longitude;
-		
+		*/
 		// Tallentaa koordinaatit lonlat muuttujaan
 		//var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
 		//.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
@@ -132,7 +132,7 @@
 		//map.getProjectionObject()); // to Spherical Mercator Projection
 		//markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
 		//map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
-	});
+	//});
 	
 	//tehdaan kartta
 	map = new ol.Map({
@@ -151,12 +151,73 @@
   		layers: [
     			/*new ol.layer.Tile({
       			source: new ol.source.OSM()
-    },*/ LiikuntaLayer, vaesto, vaesto_kp
+    },*/ LiikuntaLayer//, vaesto, vaesto_kp
   ],
   target: 'map',
   view: new ol.View({
     center: [0, 0],
     zoom: 2
+  })
+});
+
+//Paikannus
+var geolocation = new ol.Geolocation({
+  projection: view.getProjection()
+});
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+el('track').addEventListener('change', function() {
+  geolocation.setTracking(this.checked);
+});
+
+// update the HTML page when the position changes.
+geolocation.on('change', function() {
+  el('accuracy').innerText = geolocation.getAccuracy() + ' [m]';
+  el('altitude').innerText = geolocation.getAltitude() + ' [m]';
+  el('altitudeAccuracy').innerText = geolocation.getAltitudeAccuracy() + ' [m]';
+  el('heading').innerText = geolocation.getHeading() + ' [rad]';
+  el('speed').innerText = geolocation.getSpeed() + ' [m/s]';
+});
+
+// handle geolocation error.
+geolocation.on('error', function(error) {
+  var info = document.getElementById('info');
+  info.innerHTML = error.message;
+  info.style.display = '';
+});
+
+var accuracyFeature = new ol.Feature();
+geolocation.on('change:accuracyGeometry', function() {
+  accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+});
+
+var positionFeature = new ol.Feature();
+positionFeature.setStyle(new ol.style.Style({
+  image: new ol.style.Circle({
+    radius: 6,
+    fill: new ol.style.Fill({
+      color: '#3399CC'
+    }),
+    stroke: new ol.style.Stroke({
+      color: '#fff',
+      width: 2
+    })
+  })
+}));
+
+geolocation.on('change:position', function() {
+  var coordinates = geolocation.getPosition();
+  positionFeature.setGeometry(coordinates ?
+      new ol.geom.Point(coordinates) : null);
+});
+
+var featuresOverlay = new ol.layer.Vector({
+  map: map,
+  source: new ol.source.Vector({
+    features: [accuracyFeature, positionFeature]
   })
 });
 	
@@ -197,6 +258,9 @@
     <div id="footer">
     	<h>GIS Software Development course</h>
     </div>
+    <label class="checkbox" for="track">
+      <input id="track" type="checkbox"/>track position
+    </label>
 
   </body>
 </html>
