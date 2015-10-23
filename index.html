@@ -123,14 +123,28 @@ var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
   }
 }));
 
+var vaesto_kp = new ol.layer.Vector("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
+		{layers: "WMS:vaki2014_1km_kp",
+		transparent: true,
+		format: 'image/png'},
+		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+ 
+ 	map.addLayer(vaesto_kp)
+
 /**
  * Create the map.
  */
-var map = new ol.Map("map",
-	{units:'m',
-	controls: [new OpenLayers.Control.Navigation()]
-	layers: [new OpenLayers.Layer.OSM()]
-  overlays: [overlay],
+var map = new ol.Map({
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.TileJSON({
+        url: 'http://api.tiles.mapbox.com/v3/' +
+            'mapbox.natural-earth-hypso-bathy.jsonp',
+        crossOrigin: 'anonymous'
+      })
+    })
+  ],
+  overlays: [overlay, vaesto_kp],
   target: 'map',
   view: new ol.View({
     center: [0, 0],
@@ -152,13 +166,7 @@ map.on('singleclick', function(evt) {
   overlay.setPosition(coordinate);
 });
 
-	var vaesto_kp = new ol.layer.Vector("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
-		{layers: "WMS:vaki2014_1km_kp",
-		transparent: true,
-		format: 'image/png'},
-		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
- 
- 	map.addLayer(vaesto_kp)
+	
 
 
 </script>
