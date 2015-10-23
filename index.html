@@ -78,14 +78,14 @@ var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
 }));
       
         // Luo kartan, jossa on navigointi mahdollisuus
-        map = new OpenLayers.Map("map", 
+        /*map = new OpenLayers.Map("map", 
         	{units:'m',
 		controls: [new OpenLayers.Control.Navigation()]
         	},
         	overlays: [overlay],
         	target: 'map');
-          	
-        /*var map = new ol.Map({
+          */
+        var map = new ol.Map({
   	layers: [
     	new ol.layer.Tile({
 	 source: new ol.source.TileJSON({
@@ -103,7 +103,7 @@ var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
     zoom: 2
   })
 });  	
-        */
+        
         // Lisaa openstreetmapin layeriksi
         OSMmap = new OpenLayers.Layer.OSM();
 	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
