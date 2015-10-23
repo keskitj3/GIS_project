@@ -73,19 +73,19 @@
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
 	
-	var vaesto = new OpenLayers.Layer.WMS("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
+	var vaesto = new ol.layer.Vector("Vaesto", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:vaki2014_1km",
 		transparent: true,
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
 		
-	var vaesto_kp = new OpenLayers.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
+	var vaesto_kp = new ol.layer.Vector("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
 		{layers: "WMS:vaki2014_1km_kp",
 		transparent: true,
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
  
-	// Lisaa WFS tason
+	/* Lisaa WFS tason
 	var liikuntapaikat_wfs = new OpenLayers.Layer.Vector("Liikuntapaikat WFS", {
 		strategies: [new OpenLayers.Strategy.BBOX()],
 		protocol: new OpenLayers.Protocol.WFS({
@@ -109,9 +109,9 @@
 			geometryName: "the_geom",
 			srsName: "EPSG:4326"})
 		});
-
+	*/
 	// Lisataan aikasemmin luodut tasot kartalle
-	map.addLayers([OSMmap, liikuntapaikat, vaesto, vaesto_kp, liikuntapaikat_wfs]);
+	map.addLayers([liikuntapaikat, vaesto, vaesto_kp]);
 
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
 	var lat = 60.170833;
