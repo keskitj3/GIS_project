@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Popup example</title>
+<title>Liikuntapaikat kartalla</title>
 <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -158,6 +158,15 @@ map.on('singleclick', function(evt) {
       '</code>';
   overlay.setPosition(coordinate);
 });
+
+	var vaesto_kp = new OpenLayers.Layer.WMS("Vaesto_kp", "http://130.233.249.20:8080/geoserver/WMS/wms",
+		{layers: "WMS:vaki2014_1km_kp",
+		transparent: true,
+		format: 'image/png'},
+		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+ 
+ 	ol.addLayer(vaesto_kp)
+
 
 </script>
 </body>
