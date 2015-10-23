@@ -55,7 +55,7 @@
       <script>
       
       
-var map = new ol.Map({
+var map = new ol.Map("map"{
   view: new ol.View({
     center: [0, 0],
     zoom: 1
@@ -131,7 +131,7 @@ var map = new ol.Map({
         //map.addLayers([OSMmap, wms, wfs]);
         
         //LISAYS
-        ol.map.addLayers([wms, wfs]);
+        map.addLayers([wms, wfs]);
         
         
         // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
