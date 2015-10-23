@@ -54,8 +54,15 @@
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
       
+  map = new OpenLayers.Map("map", 
+        	{units:'m',
+		controls: [new OpenLayers.Control.Navigation()]
+        	},
+        	);    
+
       
-var map = new ol.Map({
+        // Luo kartan, jossa on navigointi mahdollisuus
+        /*var map = new ol.Map({
   view: new ol.View({
     center: [0, 0],
     zoom: 1
@@ -67,13 +74,6 @@ var map = new ol.Map({
   ],
   target: 'map'
 });
-      
-        // Luo kartan, jossa on navigointi mahdollisuus
-        /*map = new OpenLayers.Map("map", 
-        	{units:'m',
-		controls: [new OpenLayers.Control.Navigation()]
-        	},
-        	);
           
         var map = new ol.Map({
   	layers: [
