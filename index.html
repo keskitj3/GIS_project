@@ -39,30 +39,7 @@
 
       function init() {
       	// Luo kartan, jossa on navigointi mahdollisuus
-      	map = new ol.Map({
-  controls: ol.control.defaults({
-    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-      collapsible: false
-    })
-  }).extend([
-    new ol.control.ZoomToExtent({
-      extent: [
-        813079.7791264898, 5929220.284081122,
-        848966.9639063801, 5936863.986909639
-      ]
-    })
-  ]),
-  layers: [
-    new ol.layer.Tile({
-      source: new ol.source.OSM()
-    })
-  ],
-  target: 'map',
-  view: new ol.View({
-    center: [0, 0],
-    zoom: 2
-  })
-});
+      	
 	
 
 	
@@ -113,16 +90,16 @@
 	// Lisataan aikasemmin luodut tasot kartalle
 	//ol.Map.addLayers([liikuntapaikat, vaesto, vaesto_kp]);
 
-	ol.layer.Base(liikuntapaikat)
+	//ol.layer.Base(liikuntapaikat)
 
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
-	var lat = 60.170833;
+	/*var lat = 60.170833;
 	var lon = 24.9375;
 	var zoom = 14;
-	
+	*/
 	// Lisaa merkintakuviot yhdeksi tasoksi
 	var markers = new OpenLayers.Layer.Markers("Markers");
-	map.addLayer(markers);
+	//map.addLayer(markers);
 	
 	// Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
 	navigator.geolocation.getCurrentPosition(function(position) {
@@ -135,16 +112,44 @@
 		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
 		
 		map.getProjectionObject()); // to Spherical Mercator Projection
-		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
+		//markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
+		//map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
 	});
 	
-	// Lisataan kartalle muutamat tarkeat controllit
+	//tehdaan kartta
+	map = new ol.Map({
+  		controls: ol.control.defaults({
+    		attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+      		collapsible: false
+    			})
+  		}).extend([
+    		new ol.control.ZoomToExtent({
+      		extent: [
+        		813079.7791264898, 5929220.284081122,
+        		848966.9639063801, 5936863.986909639
+      			]
+			 })
+  		]),
+  		layers: [
+    			new ol.layer.Tile({
+      			source: new ol.source.OSM()
+    }, liikuntapaikat, vaeto, vaesto_kp)
+  ],
+  target: 'map',
+  view: new ol.View({
+    center: [0, 0],
+    zoom: 2
+  })
+});
+	
+	
+	
+	/*/ Lisataan kartalle muutamat tarkeat controllit
 	map.addControl(new OpenLayers.Control.PanZoomBar());
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.ScaleLine());
 	map.addControl(new OpenLayers.Control.Mouseposition());
-			
+	*/		
       }
     </script>
   </head>
