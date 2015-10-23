@@ -129,7 +129,11 @@ var map = new ol.Map({
 	
         
 	// Lisataan aikasemmin luodut tasot kartalle
-        map.addLayers([OSMmap, wms, wfs]);
+        //map.addLayers([OSMmap, wms, wfs]);
+        
+        //LISAYS
+        map.addLayers([wms, wfs]);
+        
         
         // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
         var lat = 60.170833;
