@@ -28,6 +28,53 @@
     clear:both;
     text-align:left;
     width:100%;
+    
+    
+    
+    .ol-popup {
+  position: absolute;
+  background-color: white;
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "✖";
+}
+
+    
 	</style>
   </head>
   
@@ -53,12 +100,75 @@
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
       
-var map = new ol.Map("map", 
-        	{units:'m',
-		controls: [new OpenLayers.Control.Navigation()]
-        	});    
-
       
+      
+      
+      /**
+ * Elements that make up the popup.
+ */
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+
+/**
+ * Add a click handler to hide the popup.
+ * @return {boolean} Don't follow the href.
+ */
+closer.onclick = function() {
+  overlay.setPosition(undefined);
+  closer.blur();
+  return false;
+};
+
+
+/**
+ * Create an overlay to anchor the popup to the map.
+ */
+var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+  element: container,
+  autoPan: true,
+  autoPanAnimation: {
+    duration: 250
+  }
+}));
+
+
+/**
+ * Create the map.
+ */
+var map = new ol.Map({
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.TileJSON({
+        url: 'http://api.tiles.mapbox.com/v3/' +
+            'mapbox.natural-earth-hypso-bathy.jsonp',
+        crossOrigin: 'anonymous'
+      })
+    })
+  ],
+  overlays: [overlay],
+  target: 'map',
+  view: new ol.View({
+    center: [0, 0],
+    zoom: 2
+  })
+});
+
+
+/**
+ * Add a click handler to the map to render the popup.
+ */
+map.on('singleclick', function(evt) {
+  var coordinate = evt.coordinate;
+  var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+      coordinate, 'EPSG:3857', 'EPSG:4326'));
+
+  content.innerHTML = '<p>You clicked here:</p><code>' + hdms +
+      '</code>';
+  overlay.setPosition(coordinate);
+});
+
         // Luo kartan, jossa on navigointi mahdollisuus
         /*var map = new ol.Map({
   view: new ol.View({
