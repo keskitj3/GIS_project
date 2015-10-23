@@ -111,7 +111,9 @@
 		});
 	*/
 	// Lisataan aikasemmin luodut tasot kartalle
-	ol.Map.addLayers([liikuntapaikat, vaesto, vaesto_kp]);
+	//ol.Map.addLayers([liikuntapaikat, vaesto, vaesto_kp]);
+
+	ol.layer.Base(liikuntapaikat)
 
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
 	var lat = 60.170833;
