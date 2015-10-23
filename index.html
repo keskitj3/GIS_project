@@ -108,10 +108,10 @@
 		" Longitude: " + position.coords.longitude;
 		
 		// Tallentaa koordinaatit lonlat muuttujaan
-		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
+		//var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+		//.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
 		
-		map.getProjectionObject()); // to Spherical Mercator Projection
+		//map.getProjectionObject()); // to Spherical Mercator Projection
 		//markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
 		//map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
 	});
