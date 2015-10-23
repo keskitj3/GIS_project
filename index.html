@@ -73,8 +73,7 @@ var map = new ol.Map({
         	{units:'m',
 		controls: [new OpenLayers.Control.Navigation()]
         	},
-        	overlays: [overlay],
-        	target: 'map');
+        	);
           
         var map = new ol.Map({
   	layers: [
@@ -132,7 +131,7 @@ var map = new ol.Map({
         //map.addLayers([OSMmap, wms, wfs]);
         
         //LISAYS
-        map.addLayers([wms, wfs]);
+        ol.map.addLayers([wms, wfs]);
         
         
         // Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
