@@ -49,11 +49,30 @@
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
         // Luo kartan, jossa on navigointi mahdollisuus
-        map = new OpenLayers.Map("map", 
+        /*map = new OpenLayers.Map("map", 
         	{units:'m',
 		controls: [new OpenLayers.Control.Navigation()]
         	});
-          	
+        */  	
+        var map = new ol.Map({
+  	layers: [
+    	new ol.layer.Tile({
+	 source: new ol.source.TileJSON({
+	 url: 'http://api.tiles.mapbox.com/v3/' +
+            'mapbox.natural-earth-hypso-bathy.jsonp',
+        crossOrigin: 'anonymous'
+      })
+    })
+  ],
+  renderer: exampleNS.getRendererFromQueryString(),
+  overlays: [overlay],
+  target: 'map',
+  view: new ol.View({
+    center: [0, 0],
+    zoom: 2
+  })
+});  	
+        
         // Lisaa openstreetmapin layeriksi
         OSMmap = new OpenLayers.Layer.OSM();
 	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
