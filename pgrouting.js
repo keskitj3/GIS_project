@@ -123,7 +123,7 @@ function el(id) {
 el('track').addEventListener('change', function() {
   geolocation.setTracking(this.checked);
 });
-
+/*
 // update the HTML page when the position changes.
 geolocation.on('change', function() {
   el('accuracy').innerText = geolocation.getAccuracy() + ' [m]';
@@ -132,19 +132,19 @@ geolocation.on('change', function() {
   el('heading').innerText = geolocation.getHeading() + ' [rad]';
   el('speed').innerText = geolocation.getSpeed() + ' [m/s]';
 });
-
+*/
 // handle geolocation error.
 geolocation.on('error', function(error) {
   var info = document.getElementById('info');
   info.innerHTML = error.message;
   info.style.display = '';
 });
-
+/*
 var accuracyFeature = new ol.Feature();
 geolocation.on('change:accuracyGeometry', function() {
   accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
 });
-
+*/
 var positionFeature = new ol.Feature();
 positionFeature.setStyle(new ol.style.Style({
   image: new ol.style.Circle({
@@ -168,7 +168,7 @@ geolocation.on('change:position', function() {
 var featuresOverlay = new ol.layer.Vector({
   map: map,
   source: new ol.source.Vector({
-    features: [accuracyFeature, positionFeature]
+    features: [positionFeature ]//, accuracyFeature ]
   })
 });
 
