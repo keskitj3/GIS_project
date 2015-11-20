@@ -1,75 +1,81 @@
-<html>
-  <head><title>OpenLayers Marker Popups</title></head>
-  <body>
-  <div id="mapdiv"></div>
-  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-  <script>
-    map = new OpenLayers.Map("mapdiv");
-    map.addLayer(new OpenLayers.Layer.OSM());
-    
-    epsg4326 =  new OpenLayers.Projection("EPSG:4326"); //WGS 1984 projection
-    projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
-   
-    var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 ).transform(epsg4326, projectTo);
-          
-    
-    var zoom=14;
-    map.setCenter (lonLat, zoom);
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <title>pgRouting testi</title>
+    <style>
+    	    #header {
+	background-color:#006600;
+	color:black;
+	text-align:center;
+	width:100%;
+	padding:5px
+	      	}
+	    #nav {
+	line-height:30px;
+	background-color:green;
+	width:100%;
+	text-align:left;
+	padding:5px;
+		}
+	    #footer {
+	background-color:#006600;
+	color:black;
+	clear:both;
+	text-align:left;
+	width:100%;
+	padding:5px;
+	    	}
+	    #map {
+	height:500px;
+	width:100%;
+		}
+    </style>
+  </head>
 
-    var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
-    
-    // Define markers as "features" of the vector layer:
-    var feature = new OpenLayers.Feature.Vector(
-            new OpenLayers.Geometry.Point( -0.1279688, 51.5077286 ).transform(epsg4326, projectTo),
-            {description:'This is the value of<br>the description attribute'} ,
-            {externalGraphic: 'img/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
-        );    
-    vectorLayer.addFeatures(feature);
-    
-    var feature = new OpenLayers.Feature.Vector(
-            new OpenLayers.Geometry.Point( -0.1244324, 51.5006728  ).transform(epsg4326, projectTo),
-            {description:'Big Ben'} ,
-            {externalGraphic: 'img/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
-        );    
-    vectorLayer.addFeatures(feature);
+  <body onload="init()">
 
-    var feature = new OpenLayers.Feature.Vector(
-            new OpenLayers.Geometry.Point( -0.119623, 51.503308  ).transform(epsg4326, projectTo),
-            {description:'London Eye'} ,
-            {externalGraphic: 'img/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
-        );    
-    vectorLayer.addFeatures(feature);
+<!--    <script type='text/javascript' src='http://www.openlayers.org/en/v3.0.0/build/ol.js'></script>  -->
+    <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="pgrouting.js"></script>
 
-   
-    map.addLayer(vectorLayer);
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>    
+    <link rel="stylesheet" href="http://openlayers.org/en/v3.11.1/css/ol.css"
+	type="text/css">
+    <script src="http://openlayers.org/en/v3.11.1/build/ol.js"></script>
  
-    
-    //Add a selector control to the vectorLayer with popup functions
-    var controls = {
-      selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup })
-    };
+    <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
+    <div class="container-fluid">
+   	<div id="header">
+    		<h1>Liikuntapaikat kartalla</h1>
+    	</div>
+    </div>    
 
-    function createPopup(feature) {
-      feature.popup = new OpenLayers.Popup.FramedCloud("pop",
-          feature.geometry.getBounds().getCenterLonLat(),
-          null,
-          '<div class="markerContent">'+feature.attributes.description+'</div>',
-          null,
-          true,
-          function() { controls['selector'].unselectAll(); }
-      );
-      //feature.popup.closeOnMove = true;
-      map.addPopup(feature.popup);
-    }
+    <!-- Valikkopalkki -->
+    <div class="container-fluid">    
+	<div id="nav">
+	<!-- Tehdaan nappulat paikannukselle ja trackille -->		
+		<button id="locate">Paikanna minut!</button>
+		<button id="clear">clear</button>
 
-    function destroyPopup(feature) {
-      feature.popup.destroy();
-      feature.popup = null;
-    }
+	<div id="checkboxes">
+		<input type="checkbox" onClick="showLayer(this)" name="liikuntapaikat_wms" checked> liikuntapaikat_wms</input>
+	</div>
+
+    <!-- Lisaa kartan halutulla koolla -->
+    <div class="container-fluid">
+	<div id="map">
+    </div>
     
-    map.addControl(controls['selector']);
-    controls['selector'].activate();
-      
-  </script>
-  <div id="explanation">Popup bubbles appearing when you click a marker. The marker content is set within a feature attribute</div>
-</body></html>
+    <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
+    <div class="container-fluid">
+	 <div id="footer">
+    		<h>GIS Software Development course</h>
+    	</div>
+    </div>
+
+  </body>
+</html>
+
