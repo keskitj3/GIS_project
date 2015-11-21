@@ -464,19 +464,8 @@ var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
           updateFilter();
         }
 
-        // shows/hide the control panel
-        function toggleControlPanel(){
-//          var toolbar = document.getElementById("toolbar");
-//          if (toolbar.style.display == "none") {
-//            toolbar.style.display = "block";
-/*          }
-          else {
-            toolbar.style.display = "none";
-          }
-          map.updateSize()
-*/        
-          
-          // Popup showing the position the user clicked
+// Popup showing the position the user clicked
+
 var popup = new ol.Overlay({
   element: document.getElementById('popup')
 });
@@ -499,6 +488,20 @@ map.on('click', function(evt) {
   });
   $(element).popover('show');
 });
+
+        // shows/hide the control panel
+        function toggleControlPanel(){
+//          var toolbar = document.getElementById("toolbar");
+//          if (toolbar.style.display == "none") {
+//            toolbar.style.display = "block";
+/*          }
+          else {
+            toolbar.style.display = "none";
+          }
+          map.updateSize()
+*/        
+          
+          
 
           
         }
