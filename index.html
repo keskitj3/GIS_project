@@ -126,6 +126,11 @@
             font-weight: bold;
             padding: .2em .2em;
         }
+        
+.popover-content {
+  min-width: 180px;
+}
+        
     </style>
     <script src="http://130.233.249.20:8080/geoserver/openlayers3/ol.js" type="text/javascript"></script>
     <title>OpenLayers map preview</title>
@@ -234,6 +239,36 @@
         <em>Click on the map to get feature info</em>
     </div>
     <script type="text/javascript">
+    var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+
+/**
+ * Add a click handler to hide the popup.
+ * @return {boolean} Don't follow the href.
+ */
+closer.onclick = function() {
+  overlay.setPosition(undefined);
+  closer.blur();
+  return false;
+};
+
+
+/**
+ * Create an overlay to anchor the popup to the map.
+ */
+var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+  element: container,
+  autoPan: true,
+  autoPanAnimation: {
+    duration: 250
+  }
+}));
+
+    
+    
+    
       var pureCoverage = false;
       // if this is just a coverage or a group of them, disable a few items,
       // and default to jpeg format
@@ -431,14 +466,41 @@
 
         // shows/hide the control panel
         function toggleControlPanel(){
-          var toolbar = document.getElementById("toolbar");
-          if (toolbar.style.display == "none") {
-            toolbar.style.display = "block";
-          }
+//          var toolbar = document.getElementById("toolbar");
+//          if (toolbar.style.display == "none") {
+//            toolbar.style.display = "block";
+/*          }
           else {
             toolbar.style.display = "none";
           }
           map.updateSize()
+*/        
+          
+          // Popup showing the position the user clicked
+var popup = new ol.Overlay({
+  element: document.getElementById('popup')
+});
+map.addOverlay(popup);
+
+map.on('click', function(evt) {
+  var element = popup.getElement();
+  var coordinate = evt.coordinate;
+  var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+      coordinate, 'EPSG:3857', 'EPSG:4326'));
+
+  $(element).popover('destroy');
+  popup.setPosition(coordinate);
+  // the keys are quoted to prevent renaming in ADVANCED mode.
+  $(element).popover({
+    'placement': 'top',
+    'animation': false,
+    'html': true,
+    'content': '<p>The location you clicked was:</p><code>' + hdms + '</code>'
+  });
+  $(element).popover('show');
+});
+
+          
         }
 
     </script>
