@@ -136,16 +136,8 @@ function init() {
 
 	var geojsonFormat = new ol.format.GeoJSON();
 
-	var vectorSource = new ol.source.GeoJSON({//Vector({
-	  
-	  'projection': map.getView().getProjection(),
-	  'url': 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
-	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
-		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
-		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857'
-	})
-	  
-/*	  format: new ol.format.GeoJSON(),
+	var vectorSource = new ol.source.Vector({
+	  format: new ol.format.GeoJSON(),
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
@@ -164,7 +156,7 @@ function init() {
 	  projection: 'EPSG:3857',
   	  strategy: ol.loadingstrategy.bbox
 	});
-*/	
+	
 	
 	
 /*
@@ -184,7 +176,9 @@ function init() {
 
 
 	map.addLayer(vector);
-	
+	activationLayer.getSource().addFeatures( format.readFeatures( data, {
+    featureProjection: 'EPSG:3857'
+} ) );
 
 
 	//Layerin nakyvyys napin takana
