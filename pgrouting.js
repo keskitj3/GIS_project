@@ -139,7 +139,7 @@ function init() {
 	var vectorSource = new ol.source.Vector({
 	  format: new ol.format.GeoJSON(),
 	  loader: function(extent, resolution, projection) {
-    	    var url = 'http://lipas.cc.jyu.fi/geoserver/lipas/ows?service=WFS&version=1.0.0&request=GetFeaturehttps://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson'
+    	    var url = 'https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson'
     	    
     	    /*'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
