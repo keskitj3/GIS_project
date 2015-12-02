@@ -134,7 +134,7 @@ function init() {
 	map.addLayer(liikuntapaikat_wms);
 
 
-	//var parser = new ol.parser.GeoJSON();
+	var geojsonFormat = new ol.format.GeoJSON();
 
 	var vectorSource = new ol.source.GeoJSON({//Vector({
 	  
