@@ -146,7 +146,9 @@ function init() {
 	    $.ajax({
 		url: url,
 		success: function(data) {
-		  vectorSource.addFeatures(vectorSource.readFeatures(data)); 
+		  var features = geoJSONFormat.readFeatures(data);
+        	  vectorSource.addFeatures(features);
+		  //vectorSource.addFeatures(vectorSource.readFeatures(data)); 
 		}
           });
 	  },
