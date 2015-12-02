@@ -134,7 +134,7 @@ function init() {
 	map.addLayer(liikuntapaikat_wms);
 
 
-	//var geojsonFormat = new ol.format.GeoJSON();
+	var parser = new ol.parser.GeoJSON();
 
 	var vectorSource = new ol.source.Vector({
 	  format: new ol.format.GeoJSON(),
@@ -155,6 +155,8 @@ function init() {
 	  projection: 'EPSG:3857',
   	  strategy: ol.loadingstrategy.bbox
 	});
+	
+	
 /*
 	window.loadFeatures = function(response) {
 	  vectorSource.addFeatures(geojsonFormat.readFeatures(response));
@@ -169,6 +171,21 @@ function init() {
     	    })
  	  })
 	});
+
+
+vector.addFeatures(parser, {
+  type: 'FeatureCollection',
+  features: [{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-111, 45]
+    },
+    properties: {
+      foo: 'bar'
+    }
+  }]
+});
 
 	map.addLayer(vector);
 	
