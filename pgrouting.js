@@ -147,7 +147,7 @@ function init() {
 		url: url,
 		success: function(data) {
 		  var features = geoJSONFormat.readFeatures(data);
-        	  
+        	  vectorSource.addFeature(features);
 		  //vectorSource.addFeatures(vectorSource.readFeatures(data)); 
 		}
           });
@@ -156,7 +156,7 @@ function init() {
   	  strategy: ol.loadingstrategy.bbox
 	});
 	
-	vectorSource.addFeatures();
+	
 	
 /*
 	window.loadFeatures = function(response) {
