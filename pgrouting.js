@@ -136,7 +136,7 @@ function init() {
 
 	//var parser = new ol.parser.GeoJSON();
 
-	var vectorSource = new ol.source.GeoJSON//Vector({
+	var vectorSource = new ol.source.GeoJSON({//Vector({
 	  format: new ol.format.GeoJSON(),
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
