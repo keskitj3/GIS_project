@@ -192,22 +192,29 @@ function init() {
     })
 });
 */
-var format = new ol.format.GeoJSON();
-var url = 'http://130.233.249.20:8080/geoserver/WMS/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WMS:WFS_pisteet&maxFeatures=5000&outputFormat=application%2Fjson';
-
 var vectorSource = new ol.source.Vector({
-  strategy: ol.loadingstrategy.bbox,
-  loader: function(extent, resolution, projection) {
-    $.ajax(url).then(function(response) {
-        var features = format.readFeatures(response,
-          {featureProjection: 'EPSG:3857'});
-        vectorSource.addFeatures(features);
-    });
-  }
+  format: new ol.format.GeoJSON(),
+  url: function(extent, resolution, projection) {
+    return 'http://demo.boundlessgeo.com/geoserver/wfs?service=WFS&' +
+        'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
+        'outputFormat=application/json&srsname=EPSG:3857&' +
+        'bbox=' + extent.join(',') + ',EPSG:3857';
+  },
+  strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+    maxZoom: 19
+  }))
 });
+
+
 var vector = new ol.layer.Vector({
-	source: vectorSource
-})
+  source: vectorSource,
+  style: new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'rgba(0, 0, 255, 1.0)',
+      width: 2
+    })
+  })
+});
 
 	map.addLayer(vector);
 
