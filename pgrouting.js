@@ -1,3 +1,19 @@
+(function() {
+    var cors_api_host = 'cors-anywhere.herokuapp.com';
+    var cors_api_url = 'https://' + cors_api_host + '/';
+    var slice = [].slice;
+    var origin = window.location.protocol + '//' + window.location.host;
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function() {
+        var args = slice.call(arguments);
+        var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+        if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+            targetOrigin[1] !== cors_api_host) {
+            args[1] = cors_api_url + args[1];
+        }
+        return open.apply(this, args);
+    };
+})();
 
 //OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
@@ -118,20 +134,30 @@ function init() {
 	map.addLayer(liikuntapaikat_wms);
 
 
+	//var geojsonFormat = new ol.format.GeoJSON();
 
 	var vectorSource = new ol.source.Vector({
 	  format: new ol.format.GeoJSON(),
-	  //tileOptions: {crossOriginKeyword: 'anonymous'},
-  	  url: function(extent, resolution, projection) {
-    	    return 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  loader: function(extent, resolution, projection) {
+    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
-	        'outputFormat=application/json&srsname=EPSG:3857';
-          },
-  	  strategy: ol.loadingstrategy.tile(new ol.tilegrid.createXYZ({
-    	    //maxZoom: 19
-  	  }))
+		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
+		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857';
+	    $.ajax({
+		url: url,
+		success: function(data) {
+		  vectorSource.addFeatures(vectorSource.readFeatures(data)); 
+		}
+          });
+	  },
+	  projection: 'EPSG:3857',
+  	  strategy: ol.loadingstrategy.bbox
 	});
-
+/*
+	window.loadFeatures = function(response) {
+	  vectorSource.addFeatures(geojsonFormat.readFeatures(response));
+	};
+*/
 	var vector = new ol.layer.Vector({
   	  source: vectorSource,
   	  style: new ol.style.Style({
