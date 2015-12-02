@@ -176,7 +176,7 @@ function init() {
 
 
 	map.addLayer(vector);
-	activationLayer.getSource().addFeatures( format.readFeatures( data, {
+	vector.getSource().addFeatures( format.readFeatures( data, {
     featureProjection: 'EPSG:3857'
 } ) );
 
