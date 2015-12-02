@@ -139,10 +139,14 @@ function init() {
 	var vectorSource = new ol.source.Vector({
 	  format: new ol.format.GeoJSON(),
 	  loader: function(extent, resolution, projection) {
-    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+    	    var url = 'http://lipas.cc.jyu.fi/geoserver/lipas/ows?service=WFS&version=1.0.0&request=GetFeature'
+    	    
+    	    /*'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
 		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857';
+	*/	
+		
 	    $.ajax({
 		url: url,
 		success: function(data) {
@@ -174,6 +178,7 @@ function init() {
  	  })
 	});
 
+/*
 	var vector = new ol.layer.Vector({
     source: new ol.source.Vector({
         format: new ol.format.GeoJSON(),
@@ -186,7 +191,7 @@ function init() {
         })
     })
 });
-
+*/
 
 	map.addLayer(vector);
 
