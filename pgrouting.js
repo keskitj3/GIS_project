@@ -142,7 +142,7 @@ function init() {
 	  'url': 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
-		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857';
+		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857'
 	})
 	  
 /*	  format: new ol.format.GeoJSON(),
