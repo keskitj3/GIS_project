@@ -200,7 +200,7 @@ var vectorSource = new ol.source.Vector({
 		//'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
 		'outputFormat=application/json&' +
 		'srsname=EPSG:3857&' + //maxFeatures=5000&
-		'bbox=' + 
+		//'bbox=' + 
 		extent.join(',') + ',EPSG:3857';
     /*'http://demo.boundlessgeo.com/geoserver/wfs?service=WFS&' +
         'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
