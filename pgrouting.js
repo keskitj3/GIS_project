@@ -147,7 +147,7 @@ function init() {
 		url: url,
 		success: function(data) {
 		  var features = geoJSONFormat.readFeatures(data);
-        	  vectorSource.addFeatures(features);
+        	  
 		  //vectorSource.addFeatures(vectorSource.readFeatures(data)); 
 		}
           });
@@ -156,6 +156,7 @@ function init() {
   	  strategy: ol.loadingstrategy.bbox
 	});
 	
+	vectorSource.addFeatures();
 	
 /*
 	window.loadFeatures = function(response) {
@@ -172,20 +173,6 @@ function init() {
  	  })
 	});
 
-
-vector.addFeatures(parser, {
-  type: 'FeatureCollection',
-  features: [{
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-111, 45]
-    },
-    properties: {
-      foo: 'bar'
-    }
-  }]
-});
 
 	map.addLayer(vector);
 	
