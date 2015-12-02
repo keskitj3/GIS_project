@@ -133,7 +133,7 @@ function init() {
 
 	map.addLayer(liikuntapaikat_wms);
 
-
+/*
 	var format = new ol.format.GeoJSON();
 
 	var vectorSource = new ol.source.Vector({
@@ -141,11 +141,11 @@ function init() {
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/WMS/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WMS:WFS_pisteet&maxFeatures=50&outputFormat=application%2Fjson'
     	    
-    	    /*'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+    	    'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
 		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857';
-	*/	
+		
 		
 	    $.ajax({
 		url: url,
@@ -163,11 +163,11 @@ function init() {
 	
 	
 	
-/*
+
 	window.loadFeatures = function(response) {
 	  vectorSource.addFeatures(geojsonFormat.readFeatures(response));
 	};
-*/
+
 	var vector = new ol.layer.Vector({
   	  source: vectorSource,
   	  style: new ol.style.Style({
@@ -191,7 +191,23 @@ function init() {
         })
     })
 });
+*/
+var format = new ol.format.GeoJSON();
+var url = 'http://130.233.249.20:8080/geoserver/WMS/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WMS:WFS_pisteet&maxFeatures=5000&outputFormat=application%2Fjson';
 
+var vectorSource = new ol.source.Vector({
+  strategy: ol.loadingstrategy.bbox,
+  loader: function(extent, resolution, projection) {
+    $.ajax(url).then(function(response) {
+        var features = format.readFeatures(response,
+          {featureProjection: 'EPSG:3857'});
+        vectorSource.addFeatures(features);
+    });
+  }
+});
+var vector = new ol.layer.Vector({
+	source: vectorSource
+})
 
 	map.addLayer(vector);
 
