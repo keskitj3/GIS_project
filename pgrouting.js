@@ -143,6 +143,7 @@ function init() {
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
 		'srsname=EPSG:3857&bbox=' + extent.join(',') + ',EPSG:3857';
+	})
 	  
 /*	  format: new ol.format.GeoJSON(),
 	  loader: function(extent, resolution, projection) {
@@ -161,9 +162,9 @@ function init() {
           });
 	  },
 	  projection: 'EPSG:3857',
-*/  	  strategy: ol.loadingstrategy.bbox
+  	  strategy: ol.loadingstrategy.bbox
 	});
-	
+*/	
 	
 	
 /*
