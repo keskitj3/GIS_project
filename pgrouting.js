@@ -195,10 +195,16 @@ function init() {
 var vectorSource = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   url: function(extent, resolution, projection) {
-    return 'http://demo.boundlessgeo.com/geoserver/wfs?service=WFS&' +
+    return 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
+		//'outputFormat=text/javascript&format_options=callback:loadFeatures&' + 
+		'outputFormat=application%2Fjson&' +
+		'srsname=EPSG:3857&maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
+    /*'http://demo.boundlessgeo.com/geoserver/wfs?service=WFS&' +
         'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
         'outputFormat=application/json&srsname=EPSG:3857&' +
         'bbox=' + extent.join(',') + ',EPSG:3857';
+        */
   },
   strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
     maxZoom: 19
