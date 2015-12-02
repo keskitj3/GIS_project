@@ -182,7 +182,7 @@ function init() {
 	var vector = new ol.layer.Vector({
     source: new ol.source.Vector({
         format: new ol.format.GeoJSON(),
-        url: 'https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson'
+        url: 'http://130.233.249.20:8080/geoserver/WMS/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WMS:WFS_pisteet&maxFeatures=50&outputFormat=application%2Fjson'
     }),
     style: new ol.style.Style({
         stroke: new ol.style.Stroke({
