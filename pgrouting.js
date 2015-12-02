@@ -178,7 +178,7 @@ function init() {
  	  })
 	});
 
-/*
+
 	var vector = new ol.layer.Vector({
     source: new ol.source.Vector({
         format: new ol.format.GeoJSON(),
@@ -191,7 +191,7 @@ function init() {
         })
     })
 });
-*/
+
 
 	map.addLayer(vector);
 
