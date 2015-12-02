@@ -146,7 +146,7 @@ function init() {
 	    $.ajax({
 		url: url,
 		success: function(data) {
-		  var features = geoJSONFormat.readFeatures(data);
+		  var features = format.readFeatures(data);
         	  vectorSource.addFeature(features);
 		  //vectorSource.addFeatures(vectorSource.readFeatures(data)); 
 		}
@@ -174,11 +174,22 @@ function init() {
  	  })
 	});
 
+	var vector = new ol.layer.Vector({
+    source: new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: 'https://raw.githubusercontent.com/openlayers/ol3/6838fdd4c94fe80f1a3c98ca92f84cf1454e232a/examples/data/geojson/countries.geojson'
+    }),
+    style: new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: '#eedd00',
+            width: 1.5
+        })
+    })
+});
+
 
 	map.addLayer(vector);
-	vector.getSource().addFeatures( format.readFeatures( data, {
-    featureProjection: 'EPSG:3857'
-} ) );
+
 
 
 	//Layerin nakyvyys napin takana
