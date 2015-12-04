@@ -33,9 +33,9 @@ var liikuntapaikat_wms = new ol.layer.Image({
         
         // WFS-layer
 	var geoJSONFormat = new ol.format.GeoJSON();
-
+var filtteri = 'bbox=' + extent.join(',')
 	var vectorSource = new ol.source.Vector({
-		var filtteri = 'bbox=' + extent.join(',');
+		
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
