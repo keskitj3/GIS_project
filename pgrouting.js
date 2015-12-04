@@ -41,7 +41,7 @@ var liikuntapaikat_wms = new ol.layer.Image({
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' + 
 		//'bbox=' + extent.join(',') +
-		fitteri.value +
+		fitteri +
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
 		  var features = geoJSONFormat.readFeatures(response, {
