@@ -38,7 +38,8 @@ var liikuntapaikat_wms = new ol.layer.Image({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' + 
-		//'bbox=' + extent.join(',') + 
+		//'bbox=' + extent.join(',') +
+		fitteri.value +
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
 		  var features = geoJSONFormat.readFeatures(response, {
@@ -86,7 +87,9 @@ function updateFilter(number) {
 		liikuntapaikat_wms.getSource().updateParams(filterParams);
 	return
 	}
-*/	var filtteri = "tyyppikoodi " + number
+	
+*/	liikuntapaikat_wms.getSource().updateParams(filterParams);
+	var filtteri = "tyyppikoodi " + number
 	filterParamsu["CQL_FILTER"] = filtteri//"tyyppikoodi = 2120"
 	liikuntapaikat_wms.getSource().updateParams(filterParamsu);
 	}
