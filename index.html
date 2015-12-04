@@ -201,7 +201,7 @@
                 Etsi kohde wfs:
 		  <br>
 	          <select id="filtteri" onchange="update()">
-                    <option value="bbox=' + extent.join(',')">Kaikki kohteet</option>
+                    <option value="'bbox=' + extent.join(',')">Kaikki kohteet</option>
 		    <option value="CQL_FILTER=tyyppikoodi='2120'">Kuntosalit</option>
                     <option value="CQL_FILTER=tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
                   </select>
