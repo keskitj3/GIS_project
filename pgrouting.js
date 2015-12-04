@@ -37,7 +37,9 @@ var liikuntapaikat_wms = new ol.layer.Image({
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
-		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
+		'maxFeatures=5000&' + 
+		//'bbox=' + extent.join(',') + 
+		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
