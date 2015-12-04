@@ -197,7 +197,14 @@
                   <button id="updateFilterButton" href="#" onClick="searchFilter()" title="Apply filter">Etsi</button>                 
 		  <button id="resetFilterButton" href="#" onClick="resetFilter()" title="Reset filter">Poista haku</button>
                 </li>
-
+                <br>
+                Etsi kohde wfs:
+		  <br>
+	          <select id="filtteri" onchange="update()">
+                    <option value="bbox=' + extent.join(',')">Kaikki kohteet</option>
+		    <option value="tyyppikoodi = 2120">Kuntosalit</option>
+                    <option value="tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
+                  </select>
 		<br>		
 		<!--layerin nakyvyys-->
 		<input type="checkbox" id="nappi" checked>Liikuntapaikat
