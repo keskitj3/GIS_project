@@ -1,4 +1,4 @@
-var filtteri = 'bbox=' + extent.join(',')
+var filtteri = "'bbox=' + extent.join(',')"
 
 (function() {
     var cors_api_host = 'cors-anywhere.herokuapp.com';
