@@ -27,8 +27,43 @@ var liikuntapaikat_wms = new ol.layer.Image({
             }
           })
         });
+        
+        
+        // WFS-layer
+	var geoJSONFormat = new ol.format.GeoJSON();
+
+	var vectorSource = new ol.source.Vector({
+	  loader: function(extent, resolution, projection) {
+    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
+		'outputFormat=application/json&srsname=EPSG:3857&' +
+		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
+	    $.ajax(url).then(function(response) {
+		  var features = geoJSONFormat.readFeatures(response, {
+			featureProjection: projection
+		  });
+		  vectorSource.addFeatures(features); 
+            });
+	  },
+  	  strategy: ol.loadingstrategy.bbox
+	});
+
+	var wfs_layer = new ol.layer.Vector({
+  	  source: vectorSource,
+  	  style: new ol.style.Style({
+	    image: new ol.style.Circle({
+	      radius: 6,
+	      fill: new ol.style.Fill({color: 'rgba(57,155,221,1)'}),
+	      stroke: new ol.style.Stroke({color: 'rgba(31,119,180,1)', width: 2})
+    	    })
+ 	  })
+	});
 
 //filtterÃƒÂ¶inti
+
+function update() {
+  vectorSource.clear(true);
+}
 	
 //liikuntapaikat_wms.updateParams({CQL_FILTER: 'tyyppikoodi = 2120'});
 
@@ -111,35 +146,7 @@ function init() {
 
 
 
-	// WFS-layer
-	var geoJSONFormat = new ol.format.GeoJSON();
 
-	var vectorSource = new ol.source.Vector({
-	  loader: function(extent, resolution, projection) {
-    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
-	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
-		'outputFormat=application/json&srsname=EPSG:3857&' +
-		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
-	    $.ajax(url).then(function(response) {
-		  var features = geoJSONFormat.readFeatures(response, {
-			featureProjection: projection
-		  });
-		  vectorSource.addFeatures(features); 
-            });
-	  },
-  	  strategy: ol.loadingstrategy.bbox
-	});
-
-	var wfs_layer = new ol.layer.Vector({
-  	  source: vectorSource,
-  	  style: new ol.style.Style({
-	    image: new ol.style.Circle({
-	      radius: 6,
-	      fill: new ol.style.Fill({color: 'rgba(57,155,221,1)'}),
-	      stroke: new ol.style.Stroke({color: 'rgba(31,119,180,1)', width: 2})
-    	    })
- 	  })
-	});
 
 	map.addLayer(wfs_layer);
 
