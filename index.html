@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-cabaple" content="yes"> 
     <title>Liikuntapaikat kartalla</title>
     <style>
@@ -15,12 +15,14 @@
 	background-color:#006600;
 	color:black;
 	text-align:center;
-	width:100%;
-	padding:5px
+	position:absolute;
+	z-index:80;
+	right:0;
+	left:0;
 	      	}
 	    #nav {
 	line-height:30px;
-	background-color:green;
+	background-color:#006600;
 	width:100%;
 	text-align:left;
 	padding:5px;
@@ -31,13 +33,18 @@
 	height:5%;
 	clear:both;
 	text-align:left;
-	width:100%;
 	position:absolute;
+	width:100%;
 	bottom:0;
+	left:0;
+	right:0;
 	    	}
 	    #map {
 	width:100%;
-		}
+	height:100%;
+	position:absolute;
+	left:0;	
+	}
 
 	.ol-toggle-options {
           z-index: 1000;
@@ -61,7 +68,7 @@
           padding: 0;
           text-align: center;
           text-decoration: none;
-          width: 45px;
+          width: 55px;
           border-radius: 2px;
         }
         .ol-toggle-options a:hover {
@@ -69,8 +76,6 @@
           text-decoration: none;
           background: rgba(0,60,136,0.7);
         }
-
-
 	.sidebar {
 	position:absolute;
 	top:0; right:0; width:250px;
@@ -79,10 +84,38 @@
 	background-color: #006600;
 	margin:0;
 	padding:5px;
-	font-size:25px;
+	font-size:18px;
 	border-radius:10px;
 	text-align:center;
-}
+	z-index:100;
+	}	
+
+	/* Styles used by the default GetFeatureInfo output, added to make IE happy */
+        table.featureInfo, table.featureInfo td, table.featureInfo th {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            font-size: 90%;
+            padding: .2em .1em;
+        }
+        table.featureInfo th {
+            padding: .2em .2em;
+            font-weight: bold;
+            background: #eee;
+        }
+        table.featureInfo td {
+            background: #fff;
+        }
+        table.featureInfo tr.odd td {
+            background: #eee;
+        }
+        table.featureInfo caption {
+            text-align: left;
+            font-size: 100%;
+            font-weight: bold;
+            padding: .2em .2em;
+        }
 
     </style>
   </head>
@@ -90,7 +123,7 @@
   <body onload="init()">
 		
     <!-- OpenLayers scriptit -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://openlayers.org/en/v3.11.1/build/ol.js"></script>
     <link rel="stylesheet" href="http://openlayers.org/en/v3.11.1/css/ol.css" type="text/css">
 
@@ -103,14 +136,14 @@
     <script>
         // shows/hide the control panel
     function toggleControlPanel(){
-          var sidebar = document.getElementById("sidebar");
-          if (sidebar.style.display == "none") {
-            sidebar.style.display = "block";
-          }
-          else {
-            sidebar.style.display = "none";
-	  }
-	  }
+      var sidebar = document.getElementById("sidebar");
+      if (sidebar.style.display == "none") {
+        sidebar.style.display = "block";
+      }
+      else {
+        sidebar.style.display = "none";
+      }
+    }
     </script>
 
     <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
@@ -118,71 +151,76 @@
    	<div id="header">
     		<h1>Liikuntapaikat kartalla</h1>
     	</div>
-        
+    </div> 
 
     <!--Valikkopalkki-->
-    <div class="container-fluid">
+  <!--  <div class="container-fluid"> -->
 
     <!-- Lisaa kartan halutulla koolla -->
-    <div class="container-fluid">
-	<div id="map">
-	<div class="ol-toggle-options ol-unselectable"><a title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Info</a></div>
+<!--    <div class="container-fluid">
+	<div id="map"></div>
+-->
+	<div class="ol-toggle-options ol-unselectable"><a title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Haku</a></div>
     </div>
 
 
     <div id='sidebar' class='sidebar' style="display: none;">
 
-	<div id="nav">
+<!--	<div id="nav"> -->
 		<!--Poista haettu reitti -->		
-		<button id="clear">Poista haettu reitti</button>
+		<button id="clear" class="btn btn-primary">Poista haettu reitti</button>
 		
 		<!--Paikannukselle nappula, tällä hetkellä asettaa reitinhaun aloitussijainnin-->
     		<input type="checkbox" name="track" id="track">
 		<label for="track"></label>Paikannuksen aloitussijainti
-<br><br>
+		<br><br>
+
 		<!--Filtteröinnille valikko-->
 		<li>
+
                   Näytettävät kohteet:
-<br>
+		  <br>
                   <select id="filtering" onchange="updateFilter(value)">
                     <option value="BETWEEN 0 AND 99999999999999">Kaikki kohteet</option>
 		    <option value="= 2120">Kuntosalit</option>
                     <option value="BETWEEN 3000 AND 3999">Uintikohteet</option>
                   </select>
-<br><br>
+		  <br><br>
+
 	          Etsi kohde:
-<br>
+		  <br>
 	          <select id="filterType">
                     <option value="nimi_fi LIKE ">Nimi</option>
                     <option value="tyyppi_nimi_fi LIKE ">Tyyppi</option>
                   </select>
                   <input type="text" size="15" id="filter"/>
-                  <button id="updateFilterButton" href="#" onClick="searchFilter()" title="Apply filter">Etsi</button>
-                  <button id="resetFilterButton" href="#" onClick="resetFilter()" title="Reset filter">Poista haku</button>
+                  <button id="updateFilterButton" href="#" onClick="searchFilter()" title="Apply filter">Etsi</button>                 
+		  <button id="resetFilterButton" href="#" onClick="resetFilter()" title="Reset filter">Poista haku</button>
                 </li>
-<br>		
+
+		<br>		
 		<!--layerin nakyvyys-->
-	<input type="checkbox" id="nappi" checked>Liikuntapaikat
-<br><br>
+		<input type="checkbox" id="nappi" checked>Liikuntapaikat
+		<br><br>
+	
 		<!--Valitun kohteen tiedot-->
-		<div id="nodelist">
+		<div id="information">
 		  <em>Klikkaa liikuntakohteeseen nähdäksesi sen tiedot</em>
 		  &nbsp;
 		</div>
     <!--</div>-->
-</div>
-</div>
+    </div>
 
     <!-- Lisaa kartan halutulla koolla -->
-<!--    <div class="container-fluid">
+    <div class="container-fluid">
 	<div id="map">
     </div>
--->   
+   
  
    <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
-    <div class="container">
+    <div class="container-fluid">
 	 <div id="footer">
-    		<h>GIS Software Development course</h>
+    		<h> GIS Software Development course</h>
 	 </div>
     </div>
   
