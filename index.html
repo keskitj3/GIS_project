@@ -202,8 +202,8 @@
 		  <br>
 	          <select id="filtteri" onchange="update()">
                     <option value="bbox=' + extent.join(',')">Kaikki kohteet</option>
-		    <option value="tyyppikoodi = 2120">Kuntosalit</option>
-                    <option value="tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
+		    <option value="CQL_FILTER=tyyppikoodi='2120'">Kuntosalit</option>
+                    <option value="CQL_FILTER=tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
                   </select>
 		<br>		
 		<!--layerin nakyvyys-->
