@@ -127,9 +127,10 @@ var el = document.getElementById('name');
         $.each(json1, function (key, data) {
             if (key == 'features') {
                 $.each(data, function (k, v) {
+                    el.innerHTML += v + '<br>';
                     if (v.type=='Feature') {
                         //console.log(v.geometry.coordinates);
-                        el.innerHTML += v + '<br>';
+                        
                         if (v.geometry.coordinates.length>1) {
                             features[k] = new ol.Feature(new ol.geom.Point(ol.proj.transform(v.geometry.coordinates, 'EPSG:4326', 'EPSG:3857')));
                         }
