@@ -116,6 +116,8 @@ var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 		'maxFeatures=5000&' +
 		//'bbox=' + extent.join(',') + 
 		',EPSG:3857';
+var el = document.getElementById('name');
+            		el.innerHTML = '';
 
 	$.ajax({
     url: url,
@@ -127,6 +129,7 @@ var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
                 $.each(data, function (k, v) {
                     if (v.type=='Feature') {
                         //console.log(v.geometry.coordinates);
+                        el.innerHTML += v + '<br>';
                         if (v.geometry.coordinates.length>1) {
                             features[k] = new ol.Feature(new ol.geom.Point(ol.proj.transform(v.geometry.coordinates, 'EPSG:4326', 'EPSG:3857')));
                         }
