@@ -145,17 +145,11 @@ function init() {
 
 	// when the user moves the mouse, get the name property
       // from each feature under the mouse and display it
-      function onMouseMove(browserEvent) {
-        var coordinate = browserEvent.coordinate;
-        var pixel = map.getPixelFromCoordinate(coordinate);
-        var el = document.getElementById('name');
-        el.innerHTML = '';
-        map.forEachFeatureAtPixel(pixel, function(feature) {
-          el.innerHTML += feature.get('tyyppi_nimi_fi') + '<br>';
-        });
+/*      function onMouseMove(browserEvent) {
+        
       }
       map.on('pointermove', onMouseMove);
-
+*/
 	//Layerin nakyvyys napin takana
 	nappi.addEventListener('change', function() {
   		var checked = this.checked;
@@ -252,7 +246,15 @@ function init() {
 	    var view = map.getView();
             var viewResolution = view.getResolution();
             var source = liikuntapaikat_wms.getSource();
-
+		
+	    var coordinate = feature.coordinate;//browserEvent.coordinate;
+            var pixel = map.getPixelFromCoordinate(coordinate);
+            var el = document.getElementById('name');
+            el.innerHTML = '';
+            map.forEachFeatureAtPixel(pixel, function(feature) {
+               el.innerHTML += feature.get('nimi_fi') + feature.get(tyyppi_nimi_fi) +'<br>';
+            });	
+		
 	    document.getElementById('information').innerHTML = '';
             var url = source.getGetFeatureInfoUrl(
               event.coordinate, viewResolution, view.getProjection(),
