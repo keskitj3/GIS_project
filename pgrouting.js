@@ -166,7 +166,7 @@ var clusterSource = new ol.source.Cluster({
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
-		  el.innerHTML += features;
+		  el.innerHTML += features + response +'<br>';
             });
 },
 	
