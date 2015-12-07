@@ -109,7 +109,7 @@ function init() {
 
 	//map.addLayer(liikuntapaikat_wms);
 
-
+var features = [];
 var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
@@ -146,7 +146,7 @@ var clusterSource = new ol.source.Cluster({
 });
 	// WFS-layer
 /*	var geoJSONFormat = new ol.format.GeoJSON();
-	var features = [];
+	
 	var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
