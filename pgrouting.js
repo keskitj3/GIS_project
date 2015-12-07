@@ -202,8 +202,8 @@ var clusterSource = new ol.source.Cluster({
 
 
 
-	map.addLayer(cluster_layer)
-//	map.addLayer(wfs_layer);
+//	map.addLayer(cluster_layer)
+	map.addLayer(wfs_layer);
 	
 
 	// when the user moves the mouse, get the name property
