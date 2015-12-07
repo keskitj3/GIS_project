@@ -260,7 +260,7 @@ function init() {
             map.forEachFeatureAtPixel(pixel, function(feature) {
                el.innerHTML +=  feature.get("tyyppi_nimi_fi") +"  "+ feature.get('nimi_fi') + '<br>';
             });	
-		
+	/*	
 	    document.getElementById('information').innerHTML = '';
             var url = source.getGetFeatureInfoUrl(
               event.coordinate, viewResolution, view.getProjection(),
@@ -270,7 +270,7 @@ function init() {
 	    if (url) {
 	      document.getElementById('information').innerHTML = '<iframe seamless src="' + url  + '"></iframe>';
 	    }	   
-	  }
+*/	  }
 	});
 
 	//Lisaa lasketun reitin kartalle	
