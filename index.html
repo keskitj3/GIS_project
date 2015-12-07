@@ -6,31 +6,24 @@
     <meta name="apple-mobile-web-app-cabaple" content="yes"> 
     <title>Liikuntapaikat kartalla</title>
     <style>
-	body {
+	    html, body {
 	overflow:hidden;
 	height:100%;
-		}
-
+	}
     	    #header {
-	background-color:#006600;
+	background-color:#FF6600;
 	color:black;
 	text-align:center;
+	font-family: "Lucida Sans Unicode", Lucida Grande, sans-serif;
 	position:absolute;
-	z-index:80;
+	z-index:50;
 	right:0;
 	left:0;
-	      	}
-	    #nav {
-	line-height:30px;
-	background-color:#006600;
-	width:100%;
-	text-align:left;
-	padding:5px;
-		}
+	top:0;
+	}
 	    #footer {
-	background-color:#006600;
+	background-color:#FF6600;
 	color:black;
-	height:5%;
 	clear:both;
 	text-align:left;
 	position:absolute;
@@ -38,7 +31,7 @@
 	bottom:0;
 	left:0;
 	right:0;
-	    	}
+	}
 	    #map {
 	width:100%;
 	height:100%;
@@ -48,13 +41,16 @@
 
 	.ol-toggle-options {
           z-index: 1000;
-          background: rgba(0,60,136,0.4);
-          border-radius: 4px;
-          padding: 8px;
-          position: absolute;
-          left: 25px;
-          top: 20px;
+          position:absolute;
+          right: 10px;
+          bottom: 15px;
 	}
+
+	.btn {
+	  margin:3px;
+	}
+
+/* tarvitaanko tata? 
 	.ol-toggle-options a {
           background: rgba(255,255,255,0.5);
           color: white;
@@ -75,19 +71,20 @@
           color: #fff;
           text-decoration: none;
           background: rgba(0,60,136,0.7);
-        }
+        } */
+
 	.sidebar {
 	position:absolute;
 	top:0; right:0; width:250px;
  	bottom:0;
 	overflow-x:auto;
-	background-color: #006600;
+	background-color: #FFFF00;
 	margin:0;
 	padding:5px;
-	font-size:18px;
+	font-size:15px;
 	border-radius:10px;
 	text-align:center;
-	z-index:100;
+	z-index:80;
 	}	
 
 	/* Styles used by the default GetFeatureInfo output, added to make IE happy */
@@ -129,93 +126,88 @@
 
     <!-- Bootstarp sriptit -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Toiminnallisuus scriptit -->    
     <script type="text/javascript" src="pgrouting.js"></script>
     
-<!-- sivupalkin piilotus-->
+    <!-- Sivupalkin piilotus -->
     <script>
-        // shows/hide the control panel
-    function toggleControlPanel(){
-      var sidebar = document.getElementById("sidebar");
-      if (sidebar.style.display == "none") {
-        sidebar.style.display = "block";
+      function toggleControlPanel(){
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar.style.display == "none") {
+          sidebar.style.display = "block";
+        }
+        else {
+          sidebar.style.display = "none";
+        }
       }
-      else {
-        sidebar.style.display = "none";
-      }
-    }
     </script>
 
     <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
     <div class="container-fluid">
    	<div id="header">
-    		<h1>Liikuntapaikat kartalla</h1>
-    	</div>
-    </div> 
+    	  <h1>Liikuntapaikat kartalla</h1>
+       
+  	  <div class="ol-toggle-options">  
+	   <button class="btn btn-primary" title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Valikko</button>   
+    	  </div>
+	</div>
+    
 
-    <!--Valikkopalkki-->
-  <!--  <div class="container-fluid"> -->
+	<div id='sidebar' class='sidebar' style="display: none;">
+            
+    	<button class="btn btn-primary" title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Sulje valikko</button>   
+	<br><br>  	
+      
+	<!-- Filtteröinnille valikko -->
+	Näytettävät kohteet:
+	<select id="filtering" onchange="updateFilter(value)">
+            <option value="BETWEEN 0 AND 99999999999999">Kaikki kohteet</option>
+	    <option value="= 2120">Kuntosalit</option>
+            <option value="BETWEEN 3000 AND 3999">Uintikohteet</option>
+        </select>
+	<br><br>
+    	
+	<!-- Paikannukselle nappula, tällä hetkellä asettaa reitinhaun aloitussijainnin -->
+	<input type="checkbox" name="track" id="track"> Näytä oma sijainti</input>
+	<br>
 
-    <!-- Lisaa kartan halutulla koolla -->
-<!--    <div class="container-fluid">
-	<div id="map"></div>
--->
-	<div class="ol-toggle-options ol-unselectable"><a title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Haku</a></div>
-    </div>
-
-
-    <div id='sidebar' class='sidebar' style="display: none;">
-
-<!--	<div id="nav"> -->
-		<!--Poista haettu reitti -->		
-		<button id="clear" class="btn btn-primary">Poista haettu reitti</button>
-		
-		<!--Paikannukselle nappula, tällä hetkellä asettaa reitinhaun aloitussijainnin-->
-    		<input type="checkbox" name="track" id="track">
-		<label for="track"></label>Paikannuksen aloitussijainti
-		<br><br>
-
-		<!--Filtteröinnille valikko-->
-		<li>
-
-                  Näytettävät kohteet:
-		  <br>
-                  <select id="filtering" onchange="updateFilter(value)">
-                    <option value="BETWEEN 0 AND 99999999999999">Kaikki kohteet</option>
-		    <option value="= 2120">Kuntosalit</option>
-                    <option value="BETWEEN 3000 AND 3999">Uintikohteet</option>
-                  </select>
-		  <br><br>
-
-	          Etsi kohde:
-		  <br>
-	          <select id="filterType">
-                    <option value="nimi_fi LIKE ">Nimi</option>
-                    <option value="tyyppi_nimi_fi LIKE ">Tyyppi</option>
-                  </select>
-                  <input type="text" size="15" id="filter"/>
-                  <button id="updateFilterButton" href="#" onClick="searchFilter()" title="Apply filter">Etsi</button>                 
-		  <button id="resetFilterButton" href="#" onClick="resetFilter()" title="Reset filter">Poista haku</button>
-                </li>
-                <br>
-                Etsi kohde wfs:
-		  <br>
-	          <select id="filtteri" onchange="update()">
-                    <option value="">Kaikki kohteet</option><!--'bbox=' + extent.join(',')-->
-		    <option value="CQL_FILTER=tyyppikoodi='2120'">Kuntosalit</option>
-                    <option value="CQL_FILTER=tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
-                  </select>
-		<br>		
-		<!--layerin nakyvyys-->
-		<input type="checkbox" id="nappi" checked>Liikuntapaikat
-		<br><br>
+	<!-- Painettuna mahdollistaa uuden aloitussijainnin maarittamisen -->
+	<button id="new_start" class="btn btn-primary">Vaihda aloitussijainti</button>
+	<br>
 	
-		<!--Valitun kohteen tiedot-->
-		<div id="information">
-		  <em>Klikkaa liikuntakohteeseen nähdäksesi sen tiedot</em>
-		  &nbsp;
-		</div>
-    <!--</div>-->
+	<!-- Navigoi valittuun kohteeeen -->
+	<button id="navigate" class="btn btn-primary">Navigoi</button>
+	<br>
+
+	<!-- Poista haettu reitti -->
+	<button id="clear" class="btn btn-primary">Poista haettu reitti</button>
+	<br><br>
+
+	<!-- Kohteiden haku -->
+	Etsi kohde:
+	<br>
+	<select id="filterType">
+          <option value="nimi_fi LIKE ">Nimi</option>
+          <option value="tyyppi_nimi_fi LIKE ">Tyyppi</option>
+        </select>
+        <input type="text" size="15" id="filter"/>
+        <button class="btn btn-primary btn-sm" id="updateFilterButton" href="#" onClick="searchFilter()" title="Apply filter">Etsi</button>
+	<button class="btn btn-primary btn-sm" id="resetFilterButton" href="#" onClick="resetFilter()" title="Reset filter">Poista haku</button>
+        
+	<br>		
+	
+	<!-- Layerin nakyvyys -->
+	<input type="checkbox" id="nappi" checked>Liikuntapaikat
+	<br><br>
+	
+	<!-- Valitun kohteen tiedot -->
+	<div id="information">
+	  <em>Klikkaa liikuntakohdetta nähdäksesi sen tiedot</em>
+	  &nbsp;
+	</div>
+
     </div>
 
     <!-- Lisaa kartan halutulla koolla -->
@@ -224,11 +216,11 @@
     </div>
    
  
-   <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
+    <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
     <div class="container-fluid">
-	 <div id="footer">
-    		<h> GIS Software Development course</h>
-	 </div>
+	<div id="footer">
+    	  <p> GIS Software Development course</p>
+	</div>
     </div>
   
   </body>
