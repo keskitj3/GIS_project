@@ -143,7 +143,18 @@ function init() {
 
 	map.addLayer(wfs_layer);
 
-
+	// when the user moves the mouse, get the name property
+      // from each feature under the mouse and display it
+      function onMouseMove(browserEvent) {
+        var coordinate = browserEvent.coordinate;
+        var pixel = map.getPixelFromCoordinate(coordinate);
+        var el = document.getElementById('name');
+        el.innerHTML = '';
+        map.forEachFeatureAtPixel(pixel, function(feature) {
+          el.innerHTML += feature.get('name') + '<br>';
+        });
+      }
+      map.on('pointermove', onMouseMove);
 
 	//Layerin nakyvyys napin takana
 	nappi.addEventListener('change', function() {
