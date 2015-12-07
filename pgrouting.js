@@ -125,7 +125,7 @@ var el = document.getElementById('name');
     async: false,
     success: function(json1) {
         $.each(json1, function (key, data) {
-            el.innerHTML += key+"a1"+data+"a2"+'<br>'+'<br>';
+            el.innerHTML += key+"a1"+data+"a2"+json1 +'<br>'+'<br>';
             if (key == 'features') {
 
                 $.each(data, function (k, v) {
