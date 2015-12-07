@@ -147,6 +147,7 @@ function init() {
         });
     }
 });
+},
 	
 	strategy: ol.loadingstrategy.bbox
 	});
