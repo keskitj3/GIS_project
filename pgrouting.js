@@ -318,8 +318,8 @@ var clusterSource = new ol.source.Cluster({
 		
 	    //var coordinate = browserEvent.coordinate;
             var pixel = map.getPixelFromCoordinate(coord);
-            var el = document.getElementById('name');
-            el.innerHTML = '';
+//            var el = document.getElementById('name');
+//            el.innerHTML = '';
             map.forEachFeatureAtPixel(pixel, function(feature) {
                el.innerHTML +=  feature.get("tyyppi_nimi_fi") +"  "+ feature.get('nimi_fi') + '<br>';
             });	
