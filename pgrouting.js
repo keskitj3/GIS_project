@@ -169,6 +169,7 @@ var clusterSource = new ol.source.Cluster({
 		  el.innerHTML += features;
             });
 	  },
+	  strategy: ol.loadingstrategy.bbox
 	
 
 },
