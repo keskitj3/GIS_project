@@ -168,10 +168,6 @@ var clusterSource = new ol.source.Cluster({
 		  vectorSource.addFeatures(features); 
 		  el.innerHTML += features;
             });
-	  },
-	  strategy: ol.loadingstrategy.bbox
-	
-
 },
 	
 	strategy: ol.loadingstrategy.bbox
