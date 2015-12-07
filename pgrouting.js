@@ -140,8 +140,25 @@ function init() {
     	    })
  	  })
 	});
+	
+	var clusterSource = new ol.source.Cluster({
+        	source: vectorSource
+      	});
+      	
+      	var cluster_layer = new ol.layer.Vector({
+  	  source: vectorSource,
+  	  style: new ol.style.Style({
+	    image: new ol.style.Circle({
+	      radius: 6,
+	      fill: new ol.style.Fill({color: 'rgba(57,155,221,1)'}),
+	      stroke: new ol.style.Stroke({color: 'rgba(31,119,180,1)', width: 2})
+    	    })
+ 	  })
+	});
 
+	map.addLayer(cluster_layer)
 	map.addLayer(wfs_layer);
+	
 
 	// when the user moves the mouse, get the name property
       // from each feature under the mouse and display it
