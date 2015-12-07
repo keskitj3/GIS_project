@@ -1,5 +1,3 @@
-//var filtteri = 'bbox=' + extent.join(',')
-
 (function() {
     var cors_api_host = 'cors-anywhere.herokuapp.com';
     var cors_api_url = 'https://' + cors_api_host + '/';
@@ -29,47 +27,8 @@ var liikuntapaikat_wms = new ol.layer.Image({
             }
           })
         });
-        
-        
-        // WFS-layer
-	var geoJSONFormat = new ol.format.GeoJSON();
-var filtteri = 'bbox=' + extent.join(',')
-	var vectorSource = new ol.source.Vector({
-		
-	  loader: function(extent, resolution, projection) {
-    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
-	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
-		'outputFormat=application/json&srsname=EPSG:3857&' +
-		'maxFeatures=5000&' + 
-		//'bbox=' + extent.join(',') +
-		fitteri +
-		',EPSG:3857';
-	    $.ajax(url).then(function(response) {
-		  var features = geoJSONFormat.readFeatures(response, {
-			featureProjection: projection
-		  });
-		  vectorSource.addFeatures(features); 
-            });
-	  },
-  	  strategy: ol.loadingstrategy.bbox
-	});
-
-	var wfs_layer = new ol.layer.Vector({
-  	  source: vectorSource,
-  	  style: new ol.style.Style({
-	    image: new ol.style.Circle({
-	      radius: 6,
-	      fill: new ol.style.Fill({color: 'rgba(57,155,221,1)'}),
-	      stroke: new ol.style.Stroke({color: 'rgba(31,119,180,1)', width: 2})
-    	    })
- 	  })
-	});
 
 //filtterÃƒÂ¶inti
-
-function update() {
-  vectorSource.clear(true);
-}
 	
 //liikuntapaikat_wms.updateParams({CQL_FILTER: 'tyyppikoodi = 2120'});
 
@@ -90,9 +49,7 @@ function updateFilter(number) {
 		liikuntapaikat_wms.getSource().updateParams(filterParams);
 	return
 	}
-	
-*/	liikuntapaikat_wms.getSource().updateParams(filterParams);
-	var filtteri = "tyyppikoodi " + number
+*/	var filtteri = "tyyppikoodi " + number
 	filterParamsu["CQL_FILTER"] = filtteri//"tyyppikoodi = 2120"
 	liikuntapaikat_wms.getSource().updateParams(filterParamsu);
 	}
@@ -154,7 +111,35 @@ function init() {
 
 
 
+	// WFS-layer
+	var geoJSONFormat = new ol.format.GeoJSON();
 
+	var vectorSource = new ol.source.Vector({
+	  loader: function(extent, resolution, projection) {
+    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
+		'outputFormat=application/json&srsname=EPSG:3857&' +
+		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
+	    $.ajax(url).then(function(response) {
+		  var features = geoJSONFormat.readFeatures(response, {
+			featureProjection: projection
+		  });
+		  vectorSource.addFeatures(features); 
+            });
+	  },
+  	  strategy: ol.loadingstrategy.bbox
+	});
+
+	var wfs_layer = new ol.layer.Vector({
+  	  source: vectorSource,
+  	  style: new ol.style.Style({
+	    image: new ol.style.Circle({
+	      radius: 6,
+	      fill: new ol.style.Fill({color: 'rgba(57,155,221,1)'}),
+	      stroke: new ol.style.Stroke({color: 'rgba(31,119,180,1)', width: 2})
+    	    })
+ 	  })
+	});
 
 	map.addLayer(wfs_layer);
 
@@ -190,7 +175,7 @@ function init() {
 	// The vector layer for the "start" and "destination" features.
 	var vectorLayer = new ol.layer.Vector({
   	  source: new ol.source.Vector({
-    	  features: [startPoint, destPoint]
+    	  	features: [startPoint, destPoint]
   	  })
 	});
 
@@ -212,6 +197,13 @@ function init() {
   	  return document.getElementById(id);
 	}
 
+/*
+	var paikannus = document.getElementById('id');
+	paikannus.addEventListener('change', function(event) {
+	  geolocation.setTracking(this.checked);
+	});
+*/
+
 	el('track').addEventListener('change', function() {
   	  geolocation.setTracking(this.checked);
 	});
@@ -230,16 +222,8 @@ function init() {
 	var select = selectSingleClick;
 
 	map.addInteraction(select);
-
-/*
-	var changeInteraction = function() {
-	  if (select !== null) {
-	    map.removeInteraction(select);
-	  }
-	};
-*/	
 	
-	//Laskee reitin ja palauttaa feature infon
+	//Laskee reitin valmiiksi kutsuttavaksi ja palauttaa feature infon
 	map.on('click', function(event) { 
 	 
 	  var feature = map.forEachFeatureAtPixel(event.pixel,
@@ -247,13 +231,11 @@ function init() {
 	      return feature;
 	  });
 
-	  //Aloitussijainnin mÃ¤Ã¤ritys napin taakse, muuten voidaan klikata vahingossa aloituspiste
-/*
-	  if (startPoint.getGeometry() == null) {
-	    startPoint.setGeometry(new ol.geom.Point(event.coordinate));
-	  }
-*/
+	  //Rajoittaa kartalla klikatun kohteen vain featureen
 	  if (feature) {
+
+	    geometry = feature.getGeometry();
+	    coord = geometry.getCoordinates();
 
 	    // Hakee featureiden tietoja
 	    var view = map.getView();
@@ -268,49 +250,66 @@ function init() {
 
 	    if (url) {
 	      document.getElementById('information').innerHTML = '<iframe seamless src="' + url  + '"></iframe>';
-	    }
+	    }	   
+	  }
+	});
 
-	    var geometry = feature.getGeometry();
-	    var coord = geometry.getCoordinates();
-/*
-	    if (startPoint.getGeometry() == null) {
-    	      startPoint.setGeometry(new ol.geom.Point(coord));
-		//event.coordinate
-  	    } 
-*/
+	//Lisaa lasketun reitin kartalle	
+	var navigate = document.getElementById('navigate');
+	navigate.addEventListener('click', function(event) {
+	   
 
-  	    if (destPoint.getGeometry() == null) { //else if
+	    //Asettaa loppupisteen vain featureen
+  	    if (destPoint.getGeometry() == null) {
    	      destPoint.setGeometry(new ol.geom.Point(coord));
 
-	      // Transform the coordinates from the map projection (EPSG:3857)
-    	      // to the server projection (EPSG:4326).
+	      // Transform from EPSG:3857 to EPSG:4326
     	      var startCoord = transform(startPoint.getGeometry().getCoordinates());
     	      var destCoord = transform(destPoint.getGeometry().getCoordinates());
     	      var viewparams = [
       	        'x1:' + startCoord[0], 'y1:' + startCoord[1],
       	        'x2:' + destCoord[0], 'y2:' + destCoord[1]
     	      ];
-    
+ 
+	      //Lahettaa parametrit palvelimelle, joka laskee reitin 
     	      params.viewparams = viewparams.join(';');
-    	        result = new ol.layer.Image({
-      	          source: new ol.source.ImageWMS({
+    	      result = new ol.layer.Image({
+      	        source: new ol.source.ImageWMS({
                   url: 'http://130.233.249.20:8080/geoserver/pgrouting/wms',
                   params: params
       	        })
     	      });
-            
+	
+	      result.addEventListener('change', function() {
+		result.getSource().changed();
+		//result.getSource().updateParams(params);
+	      });
+
    	      map.addLayer(result);
   	    }
-	  } 
+	  //} 
 	});
 
-
+	//Lisaa aloitussijainti, jos omaa sijaintia ei voida kayttaa
+	var new_start_point = document.getElementById('new_start');
+	new_start_point.addEventListener('click', function(event) {
+	  startPoint.setGeometry(null);
+	  map.once('click', function(event) {
+	    startPoint.setGeometry(new ol.geom.Point(event.coordinate));
+	  });
+	});
+/*
+	//Lisaa lasketun reitin kartalle	
+	var navigate = document.getElementById('navigate');
+	navigate.addEventListener('click', function(event) {
+	  map.addLayer(result);
+	});
+*/
+	//Poistaa kartalle lisatys reitin
 	var clearButton = document.getElementById('clear');
   	clearButton.addEventListener('click', function(event) {
-  	  // Reset the "start" and "destination" features.
   	  //startPoint.setGeometry(null);
   	  destPoint.setGeometry(null);
-  	  // Remove the result layer.
   	  map.removeLayer(result);
 	});
 
