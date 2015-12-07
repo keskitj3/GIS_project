@@ -113,7 +113,7 @@ function init() {
 
 	// WFS-layer
 	var geoJSONFormat = new ol.format.GeoJSON();
-
+	var features = [];
 	var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
