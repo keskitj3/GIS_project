@@ -166,7 +166,7 @@ var clusterSource = new ol.source.Cluster({
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
-		  el.innerHTML += features +"aa"+ response +'<br>';
+		  
             });
 },
 	
@@ -310,7 +310,7 @@ var clusterSource = new ol.source.Cluster({
 
 	    geometry = feature.getGeometry();
 	    coord = geometry.getCoordinates();
-
+	el.innerHTML += geometry +"aa111"+ coord +'<br>';
 	    // Hakee featureiden tietoja
 	    var view = map.getView();
             var viewResolution = view.getResolution();
