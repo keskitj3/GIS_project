@@ -151,7 +151,7 @@ function init() {
             var el = document.getElementById('name');
             el.innerHTML = '';
             map.forEachFeatureAtPixel(pixel, function(feature) {
-               el.innerHTML += feature.get('nimi_fi') + feature.get(tyyppi_nimi_fi) +'<br>';
+               el.innerHTML += feature.get('nimi_fi') + feature.get("tyyppi_nimi_fi") +'<br>';
             });	
       }
       map.on('pointermove', onMouseMove);
@@ -240,7 +240,7 @@ function init() {
 	  var feature = map.forEachFeatureAtPixel(event.pixel,
 	    function(feature, layer) {
 	      return feature;
-	  }, browserEvent);
+	  });
 
 	  //Rajoittaa kartalla klikatun kohteen vain featureen
 	  if (feature) {
@@ -258,7 +258,7 @@ function init() {
             var el = document.getElementById('name');
             el.innerHTML = '';
             map.forEachFeatureAtPixel(pixel, function(feature) {
-               el.innerHTML += feature.get('nimi_fi') + feature.get(tyyppi_nimi_fi) +'<br>';
+               el.innerHTML += feature.get('nimi_fi') + feature.get("tyyppi_nimi_fi") +'<br>';
             });	
 		
 	    document.getElementById('information').innerHTML = '';
