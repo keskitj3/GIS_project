@@ -202,7 +202,7 @@ var clusterSource = new ol.source.Cluster({
 
 
 
-	map.addLayer(clusters)
+	map.addLayer(cluster_layer)
 //	map.addLayer(wfs_layer);
 	
 
