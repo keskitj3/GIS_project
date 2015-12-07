@@ -142,6 +142,7 @@ function init() {
 	});
 	
 	var clusterSource = new ol.source.Cluster({
+        	distance: 40,
         	source: vectorSource
       	});
       	
@@ -157,7 +158,7 @@ function init() {
 	});
 
 	map.addLayer(cluster_layer)
-	map.addLayer(wfs_layer);
+//	map.addLayer(wfs_layer);
 	
 
 	// when the user moves the mouse, get the name property
