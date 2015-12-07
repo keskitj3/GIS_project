@@ -127,7 +127,7 @@ var el = document.getElementById('name');
         $.each(json1, function (key, data) {
             if (key == 'features') {
                 $.each(data, function (k, v) {
-                    el.innerHTML += v + '<br>';
+                    el.innerHTML += v + k +'<br>';
                     if (v.type=='Feature') {
                         //console.log(v.geometry.coordinates);
                         
