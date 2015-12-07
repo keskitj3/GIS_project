@@ -234,7 +234,7 @@ function init() {
 	  var feature = map.forEachFeatureAtPixel(event.pixel,
 	    function(feature, layer) {
 	      return feature;
-	  });
+	  }, browserEvent);
 
 	  //Rajoittaa kartalla klikatun kohteen vain featureen
 	  if (feature) {
@@ -247,7 +247,7 @@ function init() {
             var viewResolution = view.getResolution();
             var source = liikuntapaikat_wms.getSource();
 		
-	    var coordinate = feature.coordinate;//browserEvent.coordinate;
+	    var coordinate = browserEvent.coordinate;
             var pixel = map.getPixelFromCoordinate(coordinate);
             var el = document.getElementById('name');
             el.innerHTML = '';
