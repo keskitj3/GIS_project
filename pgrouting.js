@@ -118,7 +118,7 @@ var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 		',EPSG:3857';
 var el = document.getElementById('name');
             		el.innerHTML = '';
-
+/*
 	$.ajax({
     url: url,
     dataType: 'json',
@@ -151,9 +151,9 @@ var clusterSource = new ol.source.Cluster({
     distance: 20,
     projection: 'EPSG:3857',
     source: source
-});
+});*/
 	// WFS-layer
-/*	var geoJSONFormat = new ol.format.GeoJSON();
+	var geoJSONFormat = new ol.format.GeoJSON();
 	
 	var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
@@ -161,11 +161,12 @@ var clusterSource = new ol.source.Cluster({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
-*//*	    $.ajax(url).then(function(response) {
+	    $.ajax(url).then(function(response) {
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
+		  el.innerHTML += features;
             });
 	  },
 	
@@ -201,36 +202,9 @@ var clusterSource = new ol.source.Cluster({
     	    })
  	  })
 	});
-*/
 
-var clusters = new ol.layer.Vector({
-  source: clusterSource,
-  style: function(feature, resolution) {
-    var size = feature.get('features').length;
-    var style = styleCache[size];
-    if (!style) {
-      style = [new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 10,
-          stroke: new ol.style.Stroke({
-            color: '#fff'
-          }),
-          fill: new ol.style.Fill({
-            color: '#3399CC'
-          })
-        }),
-        text: new ol.style.Text({
-          text: size.toString(),
-          fill: new ol.style.Fill({
-            color: '#fff'
-          })
-        })
-      })];
-      styleCache[size] = style;
-    }
-    return style;
-  }
-});
+
+
 	map.addLayer(clusters)
 //	map.addLayer(wfs_layer);
 	
