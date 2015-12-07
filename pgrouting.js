@@ -151,7 +151,7 @@ function init() {
         var el = document.getElementById('name');
         el.innerHTML = '';
         map.forEachFeatureAtPixel(pixel, function(feature) {
-          el.innerHTML += feature.get('name') + '<br>';
+          el.innerHTML += feature.get('tyyppi_nimi_fi') + '<br>';
         });
       }
       map.on('pointermove', onMouseMove);
