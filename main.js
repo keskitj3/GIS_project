@@ -145,6 +145,16 @@ function init() {
 
 //clusterointikokeilu
 
+/*
+	var vectorSource = new ol.source.Vector({
+		var features = [];
+	  loader: function(extent, resolution, projection) {
+    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
+		'outputFormat=application/json&srsname=EPSG:3857&' +
+		'maxFeatures=5000&bbox=' + extent.join(',') + ',EPSG:3857';
+
+
 
 
 var features = [];
@@ -156,7 +166,7 @@ $.ajax({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
-		'bbox=' + extent.join(',') + 
+		//'bbox=' + extent.join(',') + 
 		',EPSG:3857',
     dataType: 'json',
     async: false,
@@ -180,13 +190,17 @@ $.ajax({
     }
 });
 
-/*
+*/
+
+  	var el = document.getElementById('information');
+            el.innerHTML = '';
+
 var source = new ol.source.Vector({
     url: 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
-		//'bbox=' + extent.join(',') + 
+		'bbox=' + extent.join(',') + 
 		',EPSG:3857',
     format: new ol.format.GeoJSON()
 });
@@ -202,7 +216,7 @@ var styleCache = {};
 var clusters = new ol.layer.Vector({
   source: clusterSource,
   style: function(feature, resolution) {
-  	
+  if (resolution.geometry !== null){	
 
             el.innerHTML += feature + resolution;
   	
@@ -230,10 +244,11 @@ var clusters = new ol.layer.Vector({
     }
     return style;
   }
+  }
 });
 
 map.addLayer(clusters);
-*/
+
 
 
 
