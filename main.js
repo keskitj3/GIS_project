@@ -160,14 +160,16 @@ var clusterSource = new ol.source.Cluster({
   source: source
 });
 
+  	var el = document.getElementById('information');
+            el.innerHTML = '';
+
 var styleCache = {};
 var clusters = new ol.layer.Vector({
   source: clusterSource,
   style: function(feature, resolution) {
   	
-  	var el = document.getElementById('information');
-            el.innerHTML = '';
-            el.innerHTML += feature, resolution
+
+            el.innerHTML += feature + resolution
   	
     var size = feature.get('features').length;
     var style = styleCache[size];
