@@ -84,6 +84,27 @@ function resetFilter() {
           document.getElementById('filter').value = null;
           liikuntapaikat_wms.getSource().updateParams(filterParamsu);
         }
+        
+        
+var vectorSource = new ol.source.Vector({
+	  loader: function(extent, resolution, projection) {
+    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
+		'outputFormat=application/json&srsname=EPSG:3857&' +
+		'maxFeatures=5000&'
+		//'bbox=' + extent.join(',') + 
+		',EPSG:3857';
+	    $.ajax(url).then(function(response) {
+		  var features = geoJSONFormat.readFeatures(response, {
+			featureProjection: projection
+		  });
+		  vectorSource.addFeatures(features); 
+		  //el.innerHTML +=response +'<br><br>';
+            });
+	  },
+  	  strategy: ol.loadingstrategy.bbox
+	});
+        
 
 
 //Paafunktio koko applikaation toiminnalle
@@ -117,24 +138,7 @@ function init() {
 //var el = document.getElementById('information');
 //            el.innerHTML = '';
 
-	var vectorSource = new ol.source.Vector({
-	  loader: function(extent, resolution, projection) {
-    	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
-	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
-		'outputFormat=application/json&srsname=EPSG:3857&' +
-		'maxFeatures=5000&'
-		//'bbox=' + extent.join(',') + 
-		',EPSG:3857';
-	    $.ajax(url).then(function(response) {
-		  var features = geoJSONFormat.readFeatures(response, {
-			featureProjection: projection
-		  });
-		  vectorSource.addFeatures(features); 
-		  //el.innerHTML +=response +'<br><br>';
-            });
-	  },
-  	  strategy: ol.loadingstrategy.bbox
-	});
+
 
 	var wfs_layer = new ol.layer.Vector({
   	  source: vectorSource,
