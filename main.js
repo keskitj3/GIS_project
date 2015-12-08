@@ -212,10 +212,10 @@ var source = new ol.source.Vector({
 });
 
 var clusterSource = new ol.source.Cluster({
-	if (feature.geometry.coordinates!==0){
+	//if (feature.geometry.coordinates!==0){
   distance: 40,
   source: source
-}});
+});
 
 
 
