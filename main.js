@@ -141,7 +141,7 @@ function init() {
  	  })
 	});
 
-	map.addLayer(wfs_layer);
+//	map.addLayer(wfs_layer);
 
 //clusterointikokeilu
 
