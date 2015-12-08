@@ -190,7 +190,7 @@ var clusters = new ol.layer.Vector({
   }
 });
 
-
+map.addLayer(clusters);
 
 
 
