@@ -212,9 +212,10 @@ var source = new ol.source.Vector({
 });
 
 var clusterSource = new ol.source.Cluster({
+	if (feature.geometry.coordinates!==0){
   distance: 40,
   source: source
-});
+}});
 
 
 
@@ -223,7 +224,7 @@ var clusters = new ol.layer.Vector({
   source: clusterSource,
   style: function(feature, resolution) {
   	 el.innerHTML += feature + resolution;
-  if (feature.geometry !== null){	
+  //if (feature.geometry !== null){	
 
             el.innerHTML += feature + resolution;
   	
@@ -250,7 +251,7 @@ var clusters = new ol.layer.Vector({
       styleCache[size] = style;
     }
     return style;
-  }
+ // }
   }
 });
 
