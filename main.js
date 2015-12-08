@@ -151,7 +151,7 @@ var source = new ol.source.Vector({
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
 		//'bbox=' + extent.join(',') + 
-		',EPSG:3857';
+		',EPSG:3857',
     format: new ol.format.GeoJSON()
 });
 
