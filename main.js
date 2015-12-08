@@ -123,6 +123,9 @@ function init() {
 		//'bbox=' + extent.join(',') + 
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
+	    	geoJSONFormat.readGeometry(response, {
+			featureProjection: projection
+		  });
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
 		  });
@@ -209,6 +212,12 @@ var source = new ol.source.Vector({
 		',EPSG:3857',
     format: new ol.format.GeoJSON(),
     strategy: ol.loadingstrategy.bbox
+    $.ajax(url).then(function(response) {
+		  var features = geoJSONFormat.readFeatures(response, {
+			featureProjection: projection
+		  });
+		  vectorSource.addFeatures(features); 
+            });
 });
 
 var clusterSource = new ol.source.Cluster({
