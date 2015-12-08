@@ -203,7 +203,7 @@ $.ajax({
   	var el = document.getElementById('information');
             el.innerHTML = '';
 
-var source = new ol.source.Vector({
+/*var source = new ol.source.Vector({
     url: 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
@@ -216,14 +216,15 @@ var source = new ol.source.Vector({
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
 		  });
-		  vectorSource.addFeatures(features); 
+		  source.addFeatures(features); 
             });
 });
+*/
 
 var clusterSource = new ol.source.Cluster({
 	//if (feature.geometry.coordinates!==0){
   distance: 40,
-  source: source
+  source: vectorSource
 });
 
 
