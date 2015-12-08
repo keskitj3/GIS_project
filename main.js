@@ -85,7 +85,8 @@ function resetFilter() {
           liikuntapaikat_wms.getSource().updateParams(filterParamsu);
         }
         
-        
+// WFS-layer
+var geoJSONFormat = new ol.format.GeoJSON();        
 var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
@@ -136,8 +137,7 @@ function init() {
 
 
 
-	// WFS-layer
-	var geoJSONFormat = new ol.format.GeoJSON();
+
 
 //var el = document.getElementById('information');
 //            el.innerHTML = '';
