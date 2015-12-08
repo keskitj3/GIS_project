@@ -130,7 +130,7 @@ var el = document.getElementById('information');
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
-		  el.innerHTML +=features;
+		  el.innerHTML +=features.geometry;
             });
 	  },
   	  strategy: ol.loadingstrategy.bbox
