@@ -114,8 +114,8 @@ function init() {
 	// WFS-layer
 	var geoJSONFormat = new ol.format.GeoJSON();
 
-var el = document.getElementById('information');
-            el.innerHTML = '';
+//var el = document.getElementById('information');
+//            el.innerHTML = '';
 
 	var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
@@ -130,7 +130,7 @@ var el = document.getElementById('information');
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
-		  el.innerHTML +=response +'<br><br>';
+		  //el.innerHTML +=response +'<br><br>';
             });
 	  },
   	  strategy: ol.loadingstrategy.bbox
