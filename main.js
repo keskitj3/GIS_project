@@ -114,6 +114,9 @@ function init() {
 	// WFS-layer
 	var geoJSONFormat = new ol.format.GeoJSON();
 
+var el = document.getElementById('information');
+            el.innerHTML = '';
+
 	var vectorSource = new ol.source.Vector({
 	  loader: function(extent, resolution, projection) {
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
@@ -130,6 +133,7 @@ function init() {
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
+		  innerHTML +=features;
             });
 	  },
   	  strategy: ol.loadingstrategy.bbox
@@ -200,8 +204,7 @@ $.ajax({
 
 
 
-  	var el = document.getElementById('information');
-            el.innerHTML = '';
+  	
 
 /*var source = new ol.source.Vector({
     url: 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
@@ -233,10 +236,10 @@ var styleCache = {};
 var clusters = new ol.layer.Vector({
   source: clusterSource,
   style: function(feature, resolution) {
-  	 el.innerHTML += feature + resolution;
+
   //if (feature.geometry.coordinates !== null){	
 
-            el.innerHTML += feature + resolution;
+
   	
     var size = feature.get('features').length;
     var style = styleCache[size];
