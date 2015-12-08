@@ -145,6 +145,8 @@ function init() {
 
 //clusterointikokeilu
 
+
+
 var features = [];
   	var el = document.getElementById('information');
             el.innerHTML = '';
@@ -154,7 +156,7 @@ $.ajax({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
-		//'bbox=' + extent.join(',') + 
+		'bbox=' + extent.join(',') + 
 		',EPSG:3857',
     dataType: 'json',
     async: false,
