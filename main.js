@@ -143,7 +143,7 @@ function init() {
  	  })
 	});
 
-	map.addLayer(wfs_layer);
+//	map.addLayer(wfs_layer);
 
 //clusterointikokeilu
 
@@ -193,7 +193,7 @@ $.ajax({
 });
 
 */
-/*
+
 
 
 
@@ -205,9 +205,10 @@ var source = new ol.source.Vector({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
-		'bbox=' + extent.join(',') + 
+		//'bbox=' + extent.join(',') + 
 		',EPSG:3857',
-    format: new ol.format.GeoJSON()
+    format: new ol.format.GeoJSON(),
+    strategy: ol.loadingstrategy.bbox
 });
 
 var clusterSource = new ol.source.Cluster({
