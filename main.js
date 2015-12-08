@@ -255,7 +255,7 @@ var clusters = new ol.layer.Vector({
 
 map.addLayer(clusters);
 
-*/
+
 
 
 	//Layerin nakyvyys napin takana
