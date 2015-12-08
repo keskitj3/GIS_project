@@ -228,7 +228,7 @@ $.ajax({
             });
 });
 
-
+*/
 var clusterSource = new ol.source.Cluster({
 	//if (feature.geometry.coordinates!==0){
   distance: 40,
@@ -276,7 +276,6 @@ var clusters = new ol.layer.Vector({
 map.addLayer(clusters);
 
 
-*/
 
 	//Layerin nakyvyys napin takana
 	nappi.addEventListener('change', function() {
