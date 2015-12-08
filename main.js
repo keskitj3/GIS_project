@@ -169,7 +169,7 @@ var clusters = new ol.layer.Vector({
   style: function(feature, resolution) {
   	
 
-            el.innerHTML += feature + resolution
+            el.innerHTML += feature + resolution;
   	
     var size = feature.get('features').length;
     var style = styleCache[size];
