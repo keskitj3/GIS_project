@@ -94,7 +94,7 @@ var vectorSource = new ol.source.Vector({
 		'maxFeatures=5000&' +
 		"CQL_FILTER=tyyppikoodi" + " "+ filtering_wfs.value +
 		//'bbox=' + extent.join(',') + 
-		',EPSG:3857';
+		'&,EPSG:3857';
 	    $.ajax(url).then(function(response) {
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
