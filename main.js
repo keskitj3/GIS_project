@@ -150,7 +150,7 @@ var features = [];
             el.innerHTML = '';
             
 $.ajax({
-    url: http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
+    url: 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
