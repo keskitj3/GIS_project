@@ -126,9 +126,6 @@ var el = document.getElementById('information');
 		//'bbox=' + extent.join(',') + 
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
-	    	geoJSONFormat.readGeometry(response, {
-			featureProjection: projection
-		  });
 		  var features = geoJSONFormat.readFeatures(response, {
 			featureProjection: projection
 		  });
