@@ -91,7 +91,8 @@ var vectorSource = new ol.source.Vector({
     	    var url = 'http://130.233.249.20:8080/geoserver/wfs?service=WFS&' +
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
-		'maxFeatures=5000&'
+		'maxFeatures=5000&' +
+		"CQL_FILTER=tyyppikoodi" + filtering_wfs.value +
 		//'bbox=' + extent.join(',') + 
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
@@ -105,6 +106,9 @@ var vectorSource = new ol.source.Vector({
   	  strategy: ol.loadingstrategy.bbox
 	});
         
+function update() {
+  vectorSource.clear(true);
+}; 
 
 
 //Paafunktio koko applikaation toiminnalle
