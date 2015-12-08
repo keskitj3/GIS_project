@@ -131,27 +131,6 @@ var el = document.getElementById('information');
 		  });
 		  vectorSource.addFeatures(features); 
 		  el.innerHTML +=features[493].geometry;
-		  
-/*		  success: function(json1) {
-        $.each(json1, function (key, data) {
-            if (key == 'features') {
-                $.each(data, function (k, v) {
-               	    if (v.geometry !== null){
-               	    el.innerHTML += k + v.type+ v.geometry.coordinates +'<br>';
-                    
-                    if (v.type=='Feature') {
-                        //console.log(v.geometry.coordinates);
-                        if (v.geometry.coordinates.length>1) {
-                            features[k] = new ol.Feature(new ol.geom.Point(ol.proj.transform(v.geometry.coordinates, 'EPSG:3857', 'EPSG:3857')));
-                        }
-                    }
-               	    }
-                });
-            }
-        });
-*/        
-        
-    }
             });
 	  },
   	  strategy: ol.loadingstrategy.bbox
