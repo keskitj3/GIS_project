@@ -162,7 +162,7 @@ $.ajax({
         $.each(json1, function (key, data) {
             if (key == 'features') {
                 $.each(data, function (k, v) {
-                	el.innerHTML += k + v;
+                	el.innerHTML += k + v.type;
                     if (v.type=='Feature') {
                         //console.log(v.geometry.coordinates);
                         if (v.geometry.coordinates.length>1) {
