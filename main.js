@@ -92,7 +92,7 @@ var vectorSource = new ol.source.Vector({
 	  	'version=1.1.0&request=GetFeature&typename=WMS:WFS_pisteet&' +
 		'outputFormat=application/json&srsname=EPSG:3857&' +
 		'maxFeatures=5000&' +
-		"CQL_FILTER=tyyppikoodi" + filtering_wfs.value +
+		"CQL_FILTER=tyyppikoodi " +"%"+ filtering_wfs.value +"%"
 		//'bbox=' + extent.join(',') + 
 		',EPSG:3857';
 	    $.ajax(url).then(function(response) {
