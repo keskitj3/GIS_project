@@ -150,7 +150,7 @@ var el = document.getElementById('information');
  	  })
 	});
 
-//	map.addLayer(wfs_layer);
+	map.addLayer(wfs_layer);
 
 //clusterointikokeilu
 
@@ -222,7 +222,7 @@ $.ajax({
 		  source.addFeatures(features); 
             });
 });
-*/
+
 
 var clusterSource = new ol.source.Cluster({
 	//if (feature.geometry.coordinates!==0){
@@ -271,7 +271,7 @@ var clusters = new ol.layer.Vector({
 map.addLayer(clusters);
 
 
-
+*/
 
 	//Layerin nakyvyys napin takana
 	nappi.addEventListener('change', function() {
