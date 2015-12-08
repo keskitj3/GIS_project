@@ -223,7 +223,7 @@ var clusters = new ol.layer.Vector({
   source: clusterSource,
   style: function(feature, resolution) {
   	 el.innerHTML += feature + resolution;
-  if (resolution.geometry !== null){	
+  if (feature.geometry !== null){	
 
             el.innerHTML += feature + resolution;
   	
