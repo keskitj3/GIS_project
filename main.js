@@ -130,8 +130,9 @@ var el = document.getElementById('information');
 			featureProjection: projection
 		  });
 		  vectorSource.addFeatures(features); 
-		  el.innerHTML +=features.geometry;
-		  success: function(json1) {
+		  el.innerHTML +=features[493].geometry;
+		  
+/*		  success: function(json1) {
         $.each(json1, function (key, data) {
             if (key == 'features') {
                 $.each(data, function (k, v) {
@@ -148,6 +149,8 @@ var el = document.getElementById('information');
                 });
             }
         });
+*/        
+        
     }
             });
 	  },
