@@ -121,7 +121,7 @@
 		
     <!-- OpenLayers scriptit -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://openlayers.org/en/v3.11.2/build/ol.js"></script>
+    <script src="http://openlayers.org/en/v3.11.1/build/ol.js"></script>
     <link rel="stylesheet" href="http://openlayers.org/en/v3.11.1/css/ol.css" type="text/css">
 
     <!-- Bootstarp sriptit -->
@@ -159,22 +159,24 @@
             
     	<button class="btn btn-primary" title="Sivupalkki" onClick="toggleControlPanel()" href="#toggle">Sulje valikko</button>   
 	<br><br>  	
-      
-      
-      Näytettävät wfs kohteet:
+   
+	<!--Filtteröinti valikko wms-->
+	Näytettävät kohteet:
 	<select id="filtering_wfs" onchange="update()">
-            <option value="BETWEEN 0 AND 99999999999999">Kaikki kohteet</option>
-	    <option value="= 2120">Kuntosalit</option>
-            <option value="BETWEEN 3000 AND 3999">Uintikohteet</option>
+          <option value="">Kaikki kohteet</option>
+	  <option value="&CQL_FILTER=tyyppikoodi= 2120">Kuntosalit</option>
+          <option value="&CQL_FILTER=tyyppikoodi BETWEEN 3000 AND 3999">Uintikohteet</option>
+	  <option value="&CQL_FILTER=tyyppikoodi BETWEEN 4000 AND 4999">Maastoliikuntapaikat</option>  
         </select>
-      
-	<!-- Filtteröinnille valikko -->
+   
+	<!-- Filtteröinnille valikko wms
 	Näytettävät kohteet:
 	<select id="filtering" onchange="updateFilter(value)">
             <option value="BETWEEN 0 AND 99999999999999">Kaikki kohteet</option>
 	    <option value="= 2120">Kuntosalit</option>
             <option value="BETWEEN 3000 AND 3999">Uintikohteet</option>
         </select>
+-->
 	<br><br>
     	
 	<!-- Paikannukselle nappula, tällä hetkellä asettaa reitinhaun aloitussijainnin -->
@@ -209,9 +211,6 @@
 	<!-- Layerin nakyvyys -->
 	<input type="checkbox" id="nappi" checked>Liikuntapaikat
 	<br><br>
-	
-	<!-- Tiedot wfs layeriltä-->
-	<div id="info_wfs"></div>
 
 	<!-- Valitun kohteen tiedot -->
 	<div id="information">
